@@ -1,0 +1,95 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #343a40;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+nav {
+    margin-top: 0.5rem;
+}
+
+nav a {
+    color: #61dafb;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+
+main {
+    padding: 2rem;
+}
+
+h2 {
+    color: #333;
+}
+
+ul#student-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul#student-list li {
+    background: white;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Subject Cards */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.card {
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 16px;
+    width: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card h5 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.sub-code {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.grades-container {
+    margin-top: 10px;
+}
+
+.grade {
+    background: #e9f1ff;
+    border-left: 4px solid #4682B4;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+.grade-type {
+    font-weight: bold;
+    color: #444;
+}

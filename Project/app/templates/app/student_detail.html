@@ -1,0 +1,15 @@
+<!-- templates/app/student_detail.html -->
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Student Profile</h2>
+<div id="student-info"></div>
+<div id="enrollments"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/config.js' %}"></script>
+<script src="{% static 'js/student_detail.js' %}"></script>
+{% endblock %}

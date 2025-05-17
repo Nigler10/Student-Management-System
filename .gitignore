@@ -1,0 +1,17 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# SQLite3 DB (optional, if you want fresh copies)
+*.sqlite3
