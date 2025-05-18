@@ -1,95 +1,134 @@
+/* Base Reset & Theme */
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-}
-
-header {
-    background-color: #343a40;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-
-nav {
-    margin-top: 0.5rem;
-}
-
-nav a {
-    color: #61dafb;
-    text-decoration: none;
-    margin: 0 1rem;
-}
-
-main {
-    padding: 2rem;
-}
-
-h2 {
     color: #333;
 }
 
+/* Header Styling */
+header {
+    background-color: #0057a3;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* Navigation */
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #ffeb3b;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.2s ease-in-out;
+}
+
+nav a:hover {
+    color: #ffffff;
+}
+
+/* Main Content */
+main {
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* Section Title */
+h2 {
+    color: #0057a3;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    border-left: 6px solid #0057a3;
+    padding-left: 15px;
+}
+
+/* Student List Container */
 ul#student-list {
     list-style: none;
     padding: 0;
 }
 
+/* Student List Items */
 ul#student-list li {
-    background: white;
-    padding: 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Subject Cards */
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 20px;
-}
-
-.card {
-    background: #f9f9f9;
-    border: 1px solid #ccc;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 15px;
     border-radius: 10px;
-    padding: 16px;
-    width: 300px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+/* Student name anchor link */
+ul#student-list li a {
+    color: #0057a3;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
-.card h5 {
-    margin-top: 0;
-    font-size: 1.2em;
-    color: #333;
+ul#student-list li a:hover {
+    color: #003f7d;
+    text-decoration: underline;
 }
 
-.sub-code {
-    font-size: 0.9em;
-    color: #777;
+ul#student-list li:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.grades-container {
-    margin-top: 10px;
+/* Responsive Text */
+ul#student-list li span {
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
-.grade {
-    background: #e9f1ff;
-    border-left: 4px solid #4682B4;
-    padding: 8px;
-    margin-bottom: 8px;
+/* You can optionally add buttons inside each li */
+ul#student-list li button {
+    background-color: #0057a3;
+    color: white;
+    border: none;
+    padding: 8px 14px;
     border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
 }
 
-.grade-type {
-    font-weight: bold;
-    color: #444;
+ul#student-list li button:hover {
+    background-color: #003f7d;
+}
+
+.student-email {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* Mobile-Friendly */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    ul#student-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }

@@ -2,40 +2,38 @@ from rest_framework import serializers
 from .models import Student, Subject, Enrollment, Grade
 
 class GradeSerializer(serializers.ModelSerializer):
-    enrollment = serializers.PrimaryKeyRelatedField(queryset=Enrollment.objects.all())
-
+    enrollment_display = serializers.StringRelatedField(source='enrollment', read_only=True)
     class Meta:
         model = Grade
-        fields = ['id', 'enrollment', 'grade_type', 'title', 'score']
+        fields = ['id', 'enrollment', 'enrollment_display', 'title', 'grade_type', 'score']
 
-class SubjectSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Subject
-        fields = ['id', 'title', 'code']
-
-class EnrollmentSerializer(serializers.ModelSerializer):
+class EnrollmentDetailSerializer(serializers.ModelSerializer):
     student = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all())
-    subject_id = serializers.PrimaryKeyRelatedField(
-        queryset=Subject.objects.all(), source='subject', write_only=True
-    )
-    subject = SubjectSerializer(read_only=True)
-    grades = serializers.SerializerMethodField(read_only=True)
+    student_display = serializers.StringRelatedField(source='student', read_only=True)
+    subject = serializers.PrimaryKeyRelatedField(queryset=Subject.objects.all())
+    subject_title = serializers.CharField(source='subject.title')
+    grades = serializers.SerializerMethodField()
 
     class Meta:
         model = Enrollment
-        fields = ['student', 'subject_id', 'subject', 'grades']
+        fields = ['id', 'student', 'student_display', 'subject', 'subject_title', 'grades']
 
     def get_grades(self, obj):
         grades = Grade.objects.filter(enrollment=obj)
         return GradeSerializer(grades, many=True).data
 
 class StudentDetailSerializer(serializers.ModelSerializer):
-    enrollments = serializers.SerializerMethodField()
+    full_name = serializers.SerializerMethodField()
+    enrollments = EnrollmentDetailSerializer(source='enrollment_set', many=True)
 
     class Meta:
         model = Student
-        fields = ['id', 'first_name', 'middle_name', 'last_name', 'student_id', 'email', 'enrollments']
+        fields = ['id', 'student_id', 'email', 'first_name', 'middle_name', 'last_name', 'full_name', 'enrollments']
 
-    def get_enrollments(self, obj):
-        enrollments = Enrollment.objects.filter(student=obj)
-        return EnrollmentSerializer(enrollments, many=True).data
+    def get_full_name(self, obj):
+        return f"{obj.last_name}, {obj.first_name} {obj.middle_name or ''}".strip()
+        
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ['id', 'title', 'code']

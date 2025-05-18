@@ -1,6 +1,5 @@
 from django.db import models
 
-# Choices for grade type
 GRADE_TYPE_CHOICES = (
     ('activity', 'Activity'),
     ('quiz', 'Quiz'),
