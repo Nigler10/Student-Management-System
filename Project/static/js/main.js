@@ -8,11 +8,15 @@ if (studentList) {
                 const li = document.createElement("li");
                 let middle = student.middle_name ? ` ${student.middle_name}` : '';
                 li.innerHTML = `
-                  <div>
-                    <a href="/students/${student.id}/">${student.last_name}, ${student.first_name}${middle}</a>
-                    <div class="student-email">${student.email}</div>
-                  </div>
-                `;
+                <div>
+                  <a href="/students/${student.id}/">${student.last_name}, ${student.first_name}${middle}</a>
+                  <div class="student-email">${student.email}</div>
+                </div>
+                <div>
+                  <a href="/students/${student.id}/edit/" title="Edit Student">✏️</a>
+                  <a href="/students/${student.id}/delete/" title="Delete Student">🗑️</a>
+                </div>
+              `;              
                 studentList.appendChild(li);
             });
         })

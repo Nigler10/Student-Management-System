@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 from app.views import StudentViewSet, SubjectViewSet, EnrollmentViewSet, GradeViewSet
 
-router = routers.DefaultRouter()
+router = DefaultRouter()
 router.register(r'students', StudentViewSet)
 router.register(r'subjects', SubjectViewSet)
 router.register(r'enrollments', EnrollmentViewSet)
@@ -11,7 +11,6 @@ router.register(r'grades', GradeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
-    path('api/', include('app.urls')),  # already added for API
-    path('', include('app.urls')),      # now including app views
+    path('api/', include(router.urls)),  # API endpoints live under /api/
+    path('', include('app.urls')),       # HTML views (index, create, detail pages)
 ]

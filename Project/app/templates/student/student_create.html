@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Add New Student</h2>
+<form id="create-student-form">
+    <label>First Name: <input type="text" name="first_name" required></label><br><br>
+    <label>Middle Name: <input type="text" name="middle_name"></label><br><br>
+    <label>Last Name: <input type="text" name="last_name" required></label><br><br>
+    <label>Student ID: <input type="text" name="student_id" required></label><br><br>
+    <label>Email: <input type="email" name="email" required></label><br><br>
+    <button type="submit">Create Student</button>
+    <button type="button" onclick="window.location.href='/'">Cancel</button>
+</form>
+<p id="create-status"></p>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/config.js' %}"></script>
+<script src="{% static 'js/student/student_create.js' %}"></script>
+{% endblock %}
