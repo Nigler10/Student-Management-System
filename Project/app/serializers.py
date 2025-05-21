@@ -13,7 +13,7 @@ class EnrollmentDetailSerializer(serializers.ModelSerializer):
     student = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all())
     student_display = serializers.StringRelatedField(source='student', read_only=True)
     subject = serializers.PrimaryKeyRelatedField(queryset=Subject.objects.all())
-    subject_title = serializers.CharField(source='subject.title')
+    subject_title = serializers.CharField(source='subject.title', read_only=True)
     grades = serializers.SerializerMethodField()
 
     class Meta:
