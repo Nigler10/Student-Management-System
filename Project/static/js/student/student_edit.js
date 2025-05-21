@@ -49,7 +49,7 @@ form.addEventListener("submit", function (event) {
         email: form.email.value
     };
 
-    fetch(`${API_BASE_URL}/api/students/${studentId}/`, {
+    fetch(`${API_BASE_URL}api/students/${studentId}/`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

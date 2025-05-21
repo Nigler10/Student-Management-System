@@ -4,7 +4,7 @@ const weights = { quiz: 0.25, activity: 0.25, exam: 0.5 };
 
 let studentData = null;
 
-fetch(`${API_BASE_URL}/api/students/${studentId}/`)
+fetch(`${API_BASE_URL}api/students/${studentId}/`)
   .then(res => res.json())
   .then(data => {
     studentData = data;

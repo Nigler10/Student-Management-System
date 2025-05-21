@@ -30,7 +30,7 @@ document.getElementById("create-student-form").addEventListener("submit", functi
         email: form.email.value
     };
 
-    fetch(`${API_BASE_URL}/api/students/`, {
+    fetch(`${API_BASE_URL}api/students/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

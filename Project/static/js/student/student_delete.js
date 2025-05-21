@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             if (!studentIdToDelete) return;
 
-            fetch(`/api/students/${studentIdToDelete}/`, {
+            fetch(`api/students/${studentIdToDelete}/`, {
                 method: 'DELETE',
                 headers: {
                     'X-CSRFToken': getCSRFToken()

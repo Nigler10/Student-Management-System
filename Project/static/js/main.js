@@ -1,7 +1,7 @@
 const studentList = document.getElementById("student-list");
 
 if (studentList) {
-    fetch(`${API_BASE_URL}/api/students/`)
+    fetch(`${API_BASE_URL}api/students/`)
         .then(response => response.json())
         .then(data => {
             data.forEach(student => {
