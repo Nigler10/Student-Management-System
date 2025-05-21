@@ -22,7 +22,7 @@ const status = document.getElementById("edit-status");
 
 // 👇 Load student data on page load
 window.addEventListener("DOMContentLoaded", () => {
-    fetch(`${API_BASE_URL}/api/students/${studentId}/`)
+    fetch(`${API_BASE_URL}api/students/${studentId}/`)
         .then(res => res.json())
         .then(data => {
             form.first_name.value = data.first_name;
