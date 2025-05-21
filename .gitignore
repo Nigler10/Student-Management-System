@@ -18,3 +18,5 @@ Thumbs.db
 
 # Ignore the collectstatic output (used only in deployment)
 Project/staticfiles/
+
+Project/secret_key.txt
