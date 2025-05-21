@@ -15,3 +15,6 @@ Thumbs.db
 
 # SQLite3 DB (optional, if you want fresh copies)
 *.sqlite3
+
+# Ignore the collectstatic output (used only in deployment)
+Project/staticfiles/
