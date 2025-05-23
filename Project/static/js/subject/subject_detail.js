@@ -1,31 +1,65 @@
-document.addEventListener("DOMContentLoaded", () => {
-    fetch(`${API_BASE_URL}api/subjects/${subjectId}/`)
-        .then(response => response.json())
-        .then(data => {
-            // Set subject title and code
-            document.getElementById("subject-title").textContent = data.title;
-            document.getElementById("subject-code").textContent = `Code: ${data.code}`;
-            document.getElementById("edit-btn").href = `/subjects/${data.id}/edit/`;
-            document.getElementById("delete-btn").href = `/subjects/${data.id}/delete/`;
+const subjectInfo = document.getElementById("subject-info");
+const deleteBtn = document.getElementById("delete-btn");
+const deleteModal = document.getElementById("delete-modal");
+const confirmDelete = document.getElementById("confirm-delete");
+const cancelDelete = document.getElementById("cancel-delete");
+const confirmCheckbox = document.getElementById("delete-confirm-checkbox");
 
-            // Display enrolled students
-            const studentList = document.getElementById("enrolled-students");
-            studentList.innerHTML = "";
+const API_URL = `${window.location.origin}/api/subjects/${SUBJECT_ID}/`;
 
-            const students = data.enrolled_students || [];
-            if (!students.length) {
-                studentList.innerHTML = "<li>No students enrolled in this subject.</li>";
-                return;
+// Load subject info
+fetch(API_URL)
+    .then(res => {
+        if (!res.ok) throw new Error("Failed to fetch subject.");
+        return res.json();
+    })
+    .then(subject => {
+        subjectInfo.innerHTML = `
+            <li>
+                <div class="subject-title">${subject.title}</div>
+                <div class="subject-code">Code: ${subject.code}</div>
+            </li>
+        `;
+    })
+    .catch(err => {
+        subjectInfo.innerHTML = `<li>⚠️ Failed to load subject info.</li>`;
+        console.error(err);
+    });
+
+// Show modal on delete click
+deleteBtn.addEventListener("click", () => {
+    deleteModal.style.display = "flex";
+    confirmCheckbox.checked = false;
+    confirmDelete.disabled = true;
+});
+
+// Enable/disable delete based on checkbox
+confirmCheckbox.addEventListener("change", () => {
+    confirmDelete.disabled = !confirmCheckbox.checked;
+});
+
+// Hide modal on cancel
+cancelDelete.addEventListener("click", () => {
+    deleteModal.style.display = "none";
+});
+
+// Delete confirmed
+confirmDelete.addEventListener("click", () => {
+    fetch(API_URL, {
+        method: "DELETE"
+    })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "/subjects/";
+            } else {
+                alert("❌ Failed to delete subject.");
             }
-
-            students.forEach(student => {
-                const li = document.createElement("li");
-                let middle = student.middle_name ? ` ${student.middle_name}` : '';
-                li.innerHTML = `<a href="/students/${student.id}/">${student.last_name}, ${student.first_name}${middle}</a>`;
-                studentList.appendChild(li);
-            });
         })
-        .catch(error => {
-            console.error("Error loading subject data:", error);
+        .catch(err => {
+            alert("❌ Error deleting subject.");
+            console.error(err);
+        })
+        .finally(() => {
+            deleteModal.style.display = "none";
         });
 });

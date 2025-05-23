@@ -1,88 +1,129 @@
-/* Subject Detail Title */
-#subject-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #0057a3;
-    margin-bottom: 5px;
+#subject-info {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
 }
 
-/* Subject Code Style */
-.subject-code {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-/* Action Buttons (Edit/Delete) */
-.subject-actions {
+#subject-info li {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.subject-actions .action-btn {
-    background-color: #0057a3;
-    color: white;
-    text-decoration: none;
-    padding: 10px 18px;
-    border-radius: 5px;
-    font-weight: 500;
+.subject-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0057a3;
+}
+
+.subject-code {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.subject-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
     transition: background-color 0.2s ease;
 }
 
-.subject-actions .action-btn:hover {
-    background-color: #003f7d;
+button.danger {
+    background-color: #c62828;
+    color: white;
 }
 
-/* Enrolled Students Section */
-h3 {
+button.danger:hover {
+    background-color: #a11919;
+}
+
+/* Modal overlay */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-title {
+    color: #d32f2f;
     font-size: 1.5rem;
-    color: #0057a3;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 1rem;
 }
 
-ul#enrolled-students {
-    list-style: none;
-    padding: 0;
+.modal-message {
+    color: #444;
+    font-size: 1rem;
+    margin-bottom: 1rem;
 }
 
-ul#enrolled-students li {
-    background-color: #fff;
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.modal-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: #333;
+    margin-top: 0.5rem;
+    gap: 0.5rem;
 }
 
-ul#enrolled-students li:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+.modal-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
-ul#enrolled-students li a {
-    color: #0057a3;
-    font-weight: 600;
-    text-decoration: none;
+#confirm-delete:disabled {
+    background-color: #f5b5b5;
+    cursor: not-allowed;
+    color: #fff;
 }
 
-ul#enrolled-students li a:hover {
-    text-decoration: underline;
+
+/* Simple fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-/* Mobile Friendly */
-@media (max-width: 600px) {
-    #subject-title {
-        font-size: 1.5rem;
-    }
-
-    .subject-actions {
+/* Responsive: stack modal buttons on small screens */
+@media (max-width: 480px) {
+    .modal-actions {
         flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .subject-actions .action-btn {
-        width: 100%;
-        text-align: center;
+        gap: 0.75rem;
     }
 }
+s
