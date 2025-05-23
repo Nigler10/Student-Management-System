@@ -1,0 +1,96 @@
+/* Wrapper centers content and adds space */
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Styled form card */
+.form-container {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Responsive 2-column layout */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* Inputs and labels */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #0057a3;
+    outline: none;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+/* Status message */
+#edit-status {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Buttons section */
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.update-btn {
+    background-color: #0057a3;
+    color: #fff;
+}
+
+.update-btn:hover {
+    background-color: #003f7d;
+}
+
+.cancel-btn {
+    background-color: #9e9e9e;
+    color: #fff;
+}
+
+.cancel-btn:hover {
+    background-color: #7e7e7e;
+}
