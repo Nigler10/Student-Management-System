@@ -2,21 +2,42 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="#">
+<link rel="stylesheet" href="{% static 'css/student/student_edit.css' %}">
 {% endblock %}
 
 {% block content %}
 <h2>Edit Student</h2>
-<form id="edit-student-form">
-    <label>First Name: <input type="text" name="first_name" required></label><br>
-    <label>Middle Name: <input type="text" name="middle_name"></label><br>
-    <label>Last Name: <input type="text" name="last_name" required></label><br>
-    <label>Student ID: <input type="text" name="student_id" required></label><br>
-    <label>Email: <input type="email" name="email" required></label><br>
-    <p id="edit-status"></p>
-    <button type="submit">Update</button>
-    <button type="button" onclick="window.location.href='/'">Cancel</button>
-</form>
+<div class="form-wrapper">
+    <form id="edit-student-form" class="form-container">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="middle_name">Middle Name:</label>
+                <input type="text" name="middle_name">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="student_id">Student ID:</label>
+                <input type="text" name="student_id" required>
+            </div>
+            <div class="form-group full-width">
+                <label for="email">Email:</label>
+                <input type="email" name="email" required>
+            </div>
+        </div>
+        <p id="edit-status"></p>
+        <div class="form-buttons">
+            <button type="submit" class="update-btn">Update</button>
+            <button type="button" class="cancel-btn" onclick="window.location.href='/'">Cancel</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block scripts %}
