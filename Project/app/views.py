@@ -38,6 +38,9 @@ class GradeViewSet(viewsets.ModelViewSet):
 def index(request):
     return render(request, "app/index.html")
 
+def create_subject(request):
+    return render(request, 'subject/subject_create.html')
+
 def create_student(request):
     return render(request, 'student/student_create.html')
 
