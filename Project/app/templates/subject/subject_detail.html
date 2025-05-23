@@ -1,0 +1,29 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/subject/subject_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 id="subject-title">Loading...</h2>
+<p id="subject-code" class="subject-code">Code: ...</p>
+
+<div class="subject-actions">
+    <a id="edit-btn" class="action-btn" href="#">✏️ Edit</a>
+    <a id="delete-btn" class="action-btn" href="#">🗑️ Delete</a>
+</div>
+
+<h3>Enrolled Students</h3>
+<ul id="enrolled-students">
+    <li>Loading enrolled students...</li>
+</ul>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/config.js' %}"></script>
+<script>
+    const subjectId = "{{ subject_id }}";
+</script>
+<script src="{% static 'js/subject/subject_detail.js' %}"></script>
+{% endblock %}

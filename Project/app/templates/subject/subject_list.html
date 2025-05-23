@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/subject/subject_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Subjects</h2>
+<div class="subject-header">
+    <button id="create-subject-btn" onclick="location.href='/subjects/create/'">➕ Add New Subject</button>
+</div>
+<ul id="subject-list">
+    <!-- JS will populate this -->
+</ul>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/subject/subject_list.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,68 @@
+/* Align with existing theme */
+.subject-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+#subject-list {
+    list-style: none;
+    padding: 0;
+}
+
+#subject-list li {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+#subject-list li:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-left: 6px solid #0057a3;
+}
+
+.subject-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0057a3;
+}
+
+.subject-code {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+#create-subject-btn {
+    background-color: #0057a3;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+#create-subject-btn:hover {
+    background-color: #003f7d;
+}
+
+@media (max-width: 600px) {
+    #subject-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .subject-header {
+        justify-content: center;
+    }
+}
