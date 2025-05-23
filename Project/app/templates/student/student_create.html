@@ -5,18 +5,45 @@
 <link rel="stylesheet" href="{% static 'css/student/student_create.css' %}">
 {% endblock %}
 
-{% block content %}
+{% block content %} 
+
 <h2>Add New Student</h2>
-<form id="create-student-form">
-    <label>First Name: <input type="text" name="first_name" required></label><br><br>
-    <label>Middle Name: <input type="text" name="middle_name"></label><br><br>
-    <label>Last Name: <input type="text" name="last_name" required></label><br><br>
-    <label>Student ID: <input type="text" name="student_id" required></label><br><br>
-    <label>Email: <input type="email" name="email" required></label><br><br>
-    <button type="submit">Create Student</button>
-    <button type="button" onclick="window.location.href='/'">Cancel</button>
-</form>
-<p id="create-status"></p>
+
+<div class="form-wrapper">
+    <form id="create-student-form" class="form-container">
+        <div class="form-row">
+            <div class="form-group">
+                <label>First Name: <input type="text" name="first_name" required></label>
+            </div>
+            <div class="form-group">
+                <label>Middle Name: <input type="text" name="middle_name"></label>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Last Name: <input type="text" name="last_name" required></label>
+            </div>
+            <div class="form-group">
+                <label>Student ID: <input type="text" name="student_id" required></label>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label>Email: <input type="email" name="email" required></label>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="create-btn">Create Student</button>
+            <button type="button" class="cancel-btn" onclick="window.location.href='/'">Cancel</button>
+        </div>
+
+        <p id="create-status"></p>
+    </form>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
