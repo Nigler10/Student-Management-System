@@ -66,3 +66,11 @@
         justify-content: center;
     }
 }
+
+#subject-list li {
+    cursor: pointer;
+}
+
+.subject-actions a {
+    cursor: default;
+}
