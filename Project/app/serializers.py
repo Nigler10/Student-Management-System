@@ -6,7 +6,7 @@ from .models import Student, Subject, Enrollment, Grade
 class StudentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['student_id', 'email', 'first_name', 'middle_name', 'last_name']
+        fields = ['student_id', 'first_name', 'middle_name', 'last_name', 'email']
 
 class EnrolledStudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,17 +52,19 @@ class SubjectDetailSerializer(serializers.ModelSerializer):
 # Enrollment Serializers
 
 class EnrollmentDetailSerializer(serializers.ModelSerializer):
-    student_id = serializers.PrimaryKeyRelatedField(source='student', queryset=Student.objects.all())
-    student_name = serializers.StringRelatedField(source='student', read_only=True)
-    subject_id = serializers.PrimaryKeyRelatedField(source='subject', queryset=Subject.objects.all())
-    subject_title = serializers.CharField(source='subject.title', read_only=True)
+    student = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all())
+    student_display = serializers.StringRelatedField(source='student', read_only=True)
+
+    subject = serializers.PrimaryKeyRelatedField(queryset=Subject.objects.all())
+    subject_display = serializers.StringRelatedField(source='subject', read_only=True)
+
     grades = serializers.SerializerMethodField()
 
     class Meta:
         model = Enrollment
         fields = [
-            'id', 'student_id', 'student_name',
-            'subject_id', 'subject_title',
+            'id', 'student', 'student_display',
+            'subject', 'subject_display',
             'grades'
         ]
 
