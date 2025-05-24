@@ -3,6 +3,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/subject/subject_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/subject/subject_delete.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -26,4 +27,5 @@
     const subjectId = "{{ subject_id }}";
 </script>
 <script src="{% static 'js/subject/subject_detail.js' %}"></script>
+<script src="{% static 'js/subject/subject_delete.js' %}"></script>
 {% endblock %}
