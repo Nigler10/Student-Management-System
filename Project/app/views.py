@@ -60,3 +60,7 @@ def subject_detail(request, subject_id):
 
 def create_subject(request):
     return render(request, 'subject/subject_create.html')
+
+def edit_subject(request, subject_id):
+    subject = get_object_or_404(Subject, pk=subject_id)
+    return render(request, 'subject/subject_edit.html', {'subject_id': subject.id})

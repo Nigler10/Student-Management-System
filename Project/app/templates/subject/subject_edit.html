@@ -2,16 +2,16 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/subject/subject_create.css' %}">
+<link rel="stylesheet" href="{% static 'css/subject/subject_edit.css' %}">
 {% endblock %}
 
 {% block content %}
-<h2>Create Subject</h2>
-<form id="create-subject-form">
-    <label for="title">Subject Title:</label>
+<h2>Edit Subject</h2>
+<form id="edit-subject-form">
+    <label for="title">Subject Title</label>
     <input type="text" id="title" name="title" required>
 
-    <label for="code">Subject Code:</label>
+    <label for="code">Subject Code</label>
     <input type="text" id="code" name="code" required>
 
     <div class="button-group">
@@ -20,10 +20,13 @@
     </div>
 </form>
 
-<p id="create-status"></p>
+<div id="edit-status"></div>
 {% endblock %}
 
 {% block scripts %}
 <script src="{% static 'js/config.js' %}"></script>
-<script src="{% static 'js/subject/subject_create.js' %}"></script>
+<script>
+    const SUBJECT_ID = "{{ subject_id }}";
+</script>
+<script src="{% static 'js/subject/subject_edit.js' %}"></script>
 {% endblock %}

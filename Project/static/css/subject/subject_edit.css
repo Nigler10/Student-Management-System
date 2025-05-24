@@ -22,10 +22,10 @@ input {
     border-radius: 5px;
 }
 
+/* 👇 NEW: Align buttons side by side, pushed to the right */
 .button-group {
-    display: flex !important;
-    justify-content: flex-end !important;
-    width: 100% !important;
+    display: flex;
+    justify-content: flex-end;
     gap: 10px;
     margin-top: 10px;
 }
@@ -44,7 +44,7 @@ button:hover {
     background-color: #003f7d;
 }
 
-#create-status {
+#edit-status {
     text-align: center;
     margin-top: 15px;
     font-weight: bold;
