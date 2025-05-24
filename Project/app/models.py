@@ -20,6 +20,10 @@ class Subject(models.Model):
     title = models.CharField(max_length=100)
     code = models.CharField(max_length=10, unique=True)
 
+    def save(self, *args, **kwargs):
+        self.code = self.code.upper()  # 💥 Auto-uppercase
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.title
 

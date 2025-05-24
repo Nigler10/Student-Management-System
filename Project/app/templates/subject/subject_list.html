@@ -3,18 +3,39 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/subject/subject_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/subject/subject_delete.css' %}">
 {% endblock %}
 
 {% block content %}
 <h2>Subjects</h2>
 <div class="subject-header">
-    <button id="create-subject-btn" onclick="location.href='/subjects/create/'">➕ Add New Subject</button>
+    <button id="create-subject-btn">➕ Add New Subject</button>
 </div>
 <ul id="subject-list">
     <!-- JS will populate this -->
 </ul>
+
+<!-- Delete Modal -->
+<div id="subject-delete-modal" class="modal">
+  <div class="modal-content">
+    <h3>Confirm Delete</h3>
+    <p>Are you sure you want to delete this subject?</p>
+
+    <form id="subject-delete-form">
+      <input type="checkbox" id="subject-confirm-checkbox">
+      <label for="subject-confirm-checkbox">I understand this action cannot be undone.</label>
+
+      <div class="button-group">
+        <button type="button" id="subject-cancel-delete">Cancel</button>
+        <button type="submit" id="subject-confirm-delete-btn" disabled>Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
+<script src="{% static 'js/config.js' %}"></script>
 <script src="{% static 'js/subject/subject_list.js' %}"></script>
+<script src="{% static 'js/subject/subject_delete.js' %}"></script>
 {% endblock %}

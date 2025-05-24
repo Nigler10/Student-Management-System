@@ -6,9 +6,24 @@
 {% endblock %}
 
 {% block content %}
+<h2>Create Subject</h2>
+<form id="create-subject-form">
+    <label for="title">Subject Title:</label>
+    <input type="text" id="title" name="title" required>
 
+    <label for="code">Subject Code:</label>
+    <input type="text" id="code" name="code" required>
+
+    <div style="display: flex; gap: 10px;">
+        <button type="submit">Create</button>
+        <button type="button" id="cancel-button">Cancel</button>
+    </div>
+</form>
+
+<p id="create-status"></p>
 {% endblock %}
 
 {% block scripts %}
+<script src="{% static 'js/config.js' %}"></script>
 <script src="{% static 'js/subject/subject_create.js' %}"></script>
 {% endblock %}
