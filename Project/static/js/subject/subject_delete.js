@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmCheckbox = document.getElementById("subject-confirm-checkbox");
     const confirmDeleteBtn = document.getElementById("subject-confirm-delete-btn");
 
-    let subjectIdToDelete = null;
+    let subjectIdToDelete = window.subjectIdToDelete || null;
 
     document.body.addEventListener('click', (e) => {
         const btn = e.target.closest(".delete-subject-btn");
@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     deleteForm.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        subjectIdToDelete = subjectIdToDelete || window.subjectIdToDelete;
         if (!subjectIdToDelete) return;
 
         fetch(`${API_BASE_URL}api/subjects/${subjectIdToDelete}/`, {
@@ -39,11 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             if (response.ok) {
-                location.reload();
+                window.location.href = `${API_BASE_URL}subjects/`;
             } else {
                 alert("Failed to delete subject.");
             }
         });
+        
     });
 
     function getCSRFToken() {

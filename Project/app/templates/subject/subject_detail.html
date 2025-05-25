@@ -19,6 +19,24 @@
 <ul id="enrolled-students">
     <li>Loading enrolled students...</li>
 </ul>
+
+<!-- Reuse Delete Modal from subject_list.html -->
+<div id="subject-delete-modal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Delete</h3>
+        <p>Are you sure you want to delete this subject?</p>
+
+        <form id="subject-delete-form">
+            <input type="checkbox" id="subject-confirm-checkbox">
+            <label for="subject-confirm-checkbox">I understand this action cannot be undone.</label>
+
+            <div class="button-group">
+                <button type="button" id="subject-cancel-delete">Cancel</button>
+                <button type="submit" id="subject-confirm-delete-btn" disabled>Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
