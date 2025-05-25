@@ -2,8 +2,8 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 SECTION_CHOICES = [
-    ('PMMM', 'Puella Magi Madoka Magica'),
-    ('MGHS', 'Mitakihara Girls High School'),
+    ('HM', 'Headless Mami'),
+    ('HQ', 'Holy Quintet'),
     ('WPS', 'Walpurgisnacht Section'),
     ('KMS', 'Kyubey Monitoring Squad'),
 ]
