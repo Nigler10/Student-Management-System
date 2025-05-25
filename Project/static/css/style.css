@@ -154,3 +154,11 @@ ul#student-list li button:hover {
         gap: 10px;
     }
 }
+
+ul#student-list li {
+    cursor: pointer;
+}
+
+ul#student-list li .student-actions a {
+    cursor: pointer;
+}
