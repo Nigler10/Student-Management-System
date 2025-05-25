@@ -3,11 +3,38 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/student/student_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/student/student_delete.css' %}">
 {% endblock %}
 
 {% block content %}
 <h2>Student Profile</h2>
-<div id="student-info"></div>
+<div id="student-info">
+    <h3 id="student-name"></h3>
+    <p><strong>Email:</strong> <span id="student-email"></span></p>
+    <p><strong>Student ID:</strong> <span id="student-id"></span></p>
+
+    <div class="student-actions">
+        <a id="edit-student-btn" class="action-btn" href="#">✏️ Edit</a>
+        <a id="delete-student-btn" class="action-btn" href="#">🗑️ Delete</a>
+    </div>
+</div>
+
+<!-- Delete Student Modal (reusing existing) -->
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Delete</h3>
+        <p>Are you sure you want to delete this student?</p>
+        <form id="delete-form">
+            <input type="checkbox" id="confirm-checkbox">
+            <label for="confirm-checkbox">I understand this action cannot be undone.</label>
+            <div class="button-group">
+                <button type="button" id="cancel-delete">Cancel</button>
+                <button type="submit" id="confirm-delete-btn" disabled>Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div id="enrollments"></div>
 <div id="gradeModal" class="modal">
     <div class="modal-content">
@@ -21,4 +48,5 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="{% static 'js/config.js' %}"></script>
 <script src="{% static 'js/student/student_detail.js' %}"></script>
+<script src="{% static 'js/student/student_delete.js' %}"></script>
 {% endblock %}

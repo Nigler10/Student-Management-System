@@ -8,11 +8,10 @@ fetch(`${API_BASE_URL}api/students/${studentId}/`)
   .then(res => res.json())
   .then(data => {
     studentData = data;
-    document.getElementById("student-info").innerHTML = `
-      <h3>${data.full_name}</h3>
-      <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Student ID:</strong> ${data.student_id}</p>
-    `;
+    document.getElementById("student-name").textContent = data.full_name;
+    document.getElementById("student-email").textContent = data.email;
+    document.getElementById("student-id").textContent = data.student_id;
+    document.getElementById("edit-student-btn").href = `/students/${data.id}/edit/`;
 
     const enrollmentsDiv = document.getElementById("enrollments");
 
@@ -59,15 +58,15 @@ fetch(`${API_BASE_URL}api/students/${studentId}/`)
   })
   .catch(error => console.error('Failed to load student details:', error));
 
-  function showModal(content) {
-    const modal = document.getElementById('gradeModal');
-    modal.classList.add('show'); // Flexbox!
-    document.getElementById('modal-content-body').innerHTML = content;
+function showModal(content) {
+  const modal = document.getElementById('gradeModal');
+  modal.classList.add('show'); // Flexbox!
+  document.getElementById('modal-content-body').innerHTML = content;
 }
 
 function closeModal() {
-    const modal = document.getElementById('gradeModal');
-    modal.classList.remove('show');
+  const modal = document.getElementById('gradeModal');
+  modal.classList.remove('show');
 }
 
 window.onclick = function (event) {
