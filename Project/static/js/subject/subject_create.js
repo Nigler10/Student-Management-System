@@ -1,11 +1,10 @@
-// 👇 CSRF Token Helper
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
             }
@@ -16,14 +15,51 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
-// 👇 Event listener for form submit
-document.getElementById("create-subject-form").addEventListener("submit", function(event) {
+const form = document.getElementById("create-subject-form");
+const submitBtn = document.getElementById("submit-button");
+const lockCheckbox = document.getElementById("lock_distribution");
+const warningText = document.getElementById("weight-warning");
+
+const inputs = ["title", "code", "quiz_weight", "activity_weight", "exam_weight"].map(id => document.getElementById(id));
+
+// Auto uppercase for subject code
+document.getElementById("code").addEventListener("input", function () {
+    this.value = this.value.toUpperCase();
+});
+
+function validateForm() {
+    const valuesFilled = inputs.every(input => input.value.trim() !== "");
+    const weights = [
+        parseFloat(document.getElementById("quiz_weight").value) || 0,
+        parseFloat(document.getElementById("activity_weight").value) || 0,
+        parseFloat(document.getElementById("exam_weight").value) || 0
+    ];
+    const totalWeight = weights.reduce((a, b) => a + b, 0);
+    const isLocked = lockCheckbox.checked;
+
+    if (totalWeight !== 100 && weights.some(w => w > 0)) {
+        warningText.classList.remove("hidden");
+    } else {
+        warningText.classList.add("hidden");
+    }
+
+    submitBtn.disabled = !(valuesFilled && isLocked && totalWeight === 100);
+}
+
+inputs.forEach(input => input.addEventListener("input", validateForm));
+lockCheckbox.addEventListener("change", validateForm);
+
+// Form submission
+form.addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const form = event.target;
-    const formData = {
+    const data = {
         title: form.title.value,
-        code: form.code.value
+        code: form.code.value,
+        quiz_weight: parseFloat(form.quiz_weight.value),
+        activity_weight: parseFloat(form.activity_weight.value),
+        exam_weight: parseFloat(form.exam_weight.value),
+        grading_locked: true
     };
 
     fetch(`${API_BASE_URL}api/subjects/`, {
@@ -32,34 +68,26 @@ document.getElementById("create-subject-form").addEventListener("submit", functi
             "Content-Type": "application/json",
             "X-CSRFToken": csrftoken
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(data)
     })
-    .then(async response => {
-        const data = await response.json();
-        if (!response.ok) {
-            console.error("Validation errors:", data);
-            throw new Error(data.detail || "Failed to create subject");
+    .then(async res => {
+        const data = await res.json();
+        if (!res.ok) {
+            throw new Error(data.detail || "Error creating subject");
         }
         return data;
     })
-    .then(data => {
+    .then(() => {
         document.getElementById("create-status").textContent = "Subject created successfully!";
-        setTimeout(() => {
-            window.location.href = "/subjects/";
-        }, 1000);
+        setTimeout(() => window.location.href = "/subjects/", 1000);
     })
-    .catch(error => {
-        console.error("Error creating subject:", error);
+    .catch(err => {
+        console.error("Create failed:", err);
         document.getElementById("create-status").textContent = "Something went wrong. Try again.";
     });
 });
 
-// 👇 Cancel button returns to subject list
+// Cancel
 document.getElementById("cancel-button").addEventListener("click", () => {
     window.location.href = "/subjects/";
 });
-
-document.getElementById("code").addEventListener("input", function () {
-    this.value = this.value.toUpperCase();
-});
-

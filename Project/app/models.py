@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 
 SECTION_CHOICES = [
     ('HM', 'Headless Mami'),
@@ -38,8 +39,23 @@ class Subject(models.Model):
     title = models.CharField(max_length=100)
     code = models.CharField(max_length=10, unique=True)
 
+    # 🧮 Grade distribution (percentages)
+    quiz_weight = models.DecimalField(max_digits=5, decimal_places=2, default=25.00)
+    activity_weight = models.DecimalField(max_digits=5, decimal_places=2, default=25.00)
+    exam_weight = models.DecimalField(max_digits=5, decimal_places=2, default=50.00)
+
+    # 🔒 Grade locking
+    grading_locked = models.BooleanField(default=False)
+
+    def clean(self):
+        # 🔍 Validate grade distribution total = 100%
+        total = self.quiz_weight + self.activity_weight + self.exam_weight
+        if total != 100:
+            raise ValidationError("Grade distribution must total 100%.")
+
     def save(self, *args, **kwargs):
-        self.code = self.code.upper()  # 💥 Auto-uppercase
+        self.code = self.code.upper()
+        self.full_clean()  # trigger `clean()` method for validation
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -8,14 +8,37 @@
 {% block content %}
 <h2>Create Subject</h2>
 <form id="create-subject-form">
-    <label for="title">Subject Title:</label>
-    <input type="text" id="title" name="title" required>
+    <div class="form-container">
+        <div class="left-column">
+            <label for="title">Subject Title:</label>
+            <input type="text" id="title" name="title" required>
 
-    <label for="code">Subject Code:</label>
-    <input type="text" id="code" name="code" required>
+            <label for="code">Subject Code:</label>
+            <input type="text" id="code" name="code" required>
+        </div>
+
+        <div class="right-column">
+            <label for="quiz_weight">Quiz Weight (%)</label>
+            <input type="number" id="quiz_weight" name="quiz_weight" min="0" max="100" required>
+
+            <label for="activity_weight">Activity Weight (%)</label>
+            <input type="number" id="activity_weight" name="activity_weight" min="0" max="100" required>
+
+            <label for="exam_weight">Exam Weight (%)</label>
+            <input type="number" id="exam_weight" name="exam_weight" min="0" max="100" required>
+
+            <p class="weight-instruction">*Total weight must equal to 100%</p>
+            <p id="weight-warning" class="warning hidden">Total must be exactly 100%</p>
+
+            <label class="checkbox-label">
+                <input type="checkbox" id="lock_distribution">
+                I understand that the grade distribution will be locked after creation.
+            </label>
+        </div>
+    </div>
 
     <div class="button-group">
-        <button type="submit">Save Changes</button>
+        <button type="submit" id="submit-button" disabled>Create Subject</button>
         <button type="button" id="cancel-button">Cancel</button>
     </div>
 </form>

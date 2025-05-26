@@ -1,8 +1,5 @@
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 400px;
+    max-width: 800px;
     margin: auto;
     padding: 20px;
     background-color: #fff;
@@ -10,24 +7,64 @@ form {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+h2 {
+    color: #0057a3;
+}
+
+.form-container {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+}
+
+.left-column,
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 label {
     font-weight: bold;
     color: #0057a3;
 }
 
-input {
+input[type="text"],
+input[type="number"] {
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.button-group {
-    display: flex !important;
-    justify-content: flex-end !important;
-    width: 100% !important;
-    gap: 10px;
+.checkbox-label {
+    font-size: 0.9rem;
+    color: #333;
     margin-top: 10px;
+}
+
+.weight-instruction {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: -5px;
+}
+
+.warning {
+    color: red;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 button {
@@ -40,7 +77,12 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
     background-color: #003f7d;
 }
 

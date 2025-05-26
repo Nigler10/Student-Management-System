@@ -38,20 +38,42 @@ class StudentDetailSerializer(serializers.ModelSerializer):
 
 # Subject Serializers
 
+# Subject Serializers
+
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = ['id', 'title', 'code']
+        fields = [
+            'id', 'title', 'code',
+            'quiz_weight', 'activity_weight', 'exam_weight',
+            'grading_locked'
+        ]
+
+    def update(self, instance, validated_data):
+        # 👮 Prevent changes to grade weights if locked
+        if instance.grading_locked:
+            for field in ['quiz_weight', 'activity_weight', 'exam_weight']:
+                if field in validated_data:
+                    raise serializers.ValidationError(
+                        f"Cannot modify {field} once grading is locked."
+                    )
+        return super().update(instance, validated_data)
 
 class SubjectDetailSerializer(serializers.ModelSerializer):
     enrolled_students = serializers.SerializerMethodField()
 
     class Meta:
         model = Subject
-        fields = ['id', 'title', 'code', 'enrolled_students']
+        fields = [
+            'id', 'title', 'code',
+            'quiz_weight', 'activity_weight', 'exam_weight',
+            'grading_locked', 'enrolled_students'
+        ]
 
     def get_enrolled_students(self, obj):
-        students = Student.objects.filter(enrollment__subject=obj).distinct().order_by('last_name', 'first_name')
+        students = Student.objects.filter(
+            enrollment__subject=obj
+        ).distinct().order_by('last_name', 'first_name')
         return EnrolledStudentSerializer(students, many=True).data
 
 # Enrollment Serializers
