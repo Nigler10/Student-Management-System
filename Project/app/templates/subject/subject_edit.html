@@ -8,11 +8,28 @@
 {% block content %}
 <h2>Edit Subject</h2>
 <form id="edit-subject-form">
-    <label for="title">Subject Title</label>
-    <input type="text" id="title" name="title" required>
+    <div class="form-columns">
+        <!-- Column 1: Title and Code -->
+        <div class="form-column">
+            <label for="title">Subject Title</label>
+            <input type="text" id="title" name="title" required>
 
-    <label for="code">Subject Code</label>
-    <input type="text" id="code" name="code" required>
+            <label for="code">Subject Code</label>
+            <input type="text" id="code" name="code" required>
+        </div>
+
+        <!-- Column 2: Grade Weights (Read-only) -->
+        <div class="form-column">
+            <label for="quiz_weight">Quiz Weight (%)</label>
+            <input type="number" id="quiz_weight" name="quiz_weight" readonly>
+
+            <label for="activity_weight">Activity Weight (%)</label>
+            <input type="number" id="activity_weight" name="activity_weight" readonly>
+
+            <label for="exam_weight">Exam Weight (%)</label>
+            <input type="number" id="exam_weight" name="exam_weight" readonly>
+        </div>
+    </div>
 
     <div class="button-group">
         <button type="submit">Save Changes</button>

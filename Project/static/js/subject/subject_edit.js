@@ -1,4 +1,4 @@
-// 👇 CSRF Token Helper (same as subject_create.js)
+// 👇 CSRF Token Helper (same as before)
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -16,19 +16,22 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
-// 👇 Populate form with existing subject data
+// 👇 Load existing subject data
 fetch(`${API_BASE_URL}api/subjects/${SUBJECT_ID}/`)
     .then(res => res.json())
     .then(data => {
         document.getElementById("title").value = data.title;
         document.getElementById("code").value = data.code;
+        document.getElementById("quiz_weight").value = data.quiz_weight;
+        document.getElementById("activity_weight").value = data.activity_weight;
+        document.getElementById("exam_weight").value = data.exam_weight;
     })
     .catch(err => {
         console.error("Failed to load subject data:", err);
         document.getElementById("edit-status").textContent = "⚠️ Error loading subject.";
     });
 
-// 👇 Handle form submission
+// 👇 Submit updated data (title + code only)
 document.getElementById("edit-subject-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -66,12 +69,12 @@ document.getElementById("edit-subject-form").addEventListener("submit", function
     });
 });
 
-// 👇 Cancel button
-document.getElementById("cancel-button").addEventListener("click", () => {
-    window.location.href = "/subjects/";
-});
-
-// 👇 Auto-uppercase subject code
+// 👇 Auto-uppercase for subject code
 document.getElementById("code").addEventListener("input", function () {
     this.value = this.value.toUpperCase();
+});
+
+// 👇 Cancel button goes back to list
+document.getElementById("cancel-button").addEventListener("click", () => {
+    window.location.href = "/subjects/";
 });
