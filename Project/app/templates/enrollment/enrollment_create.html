@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load static %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/enrollment/enrollment_create.css' %}">
@@ -6,7 +7,7 @@
 
 {% block content %}
 <div class="enrollment-create-container">
-    <h2>Enroll Student</h2>
+    <h2 class="blue">Enroll Student</h2>
     <form id="enrollment-form">
         <div class="form-group">
             <label for="student">Select Student</label>
