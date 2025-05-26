@@ -58,7 +58,7 @@ document.getElementById("edit-subject-form").addEventListener("submit", function
         return data;
     })
     .then(data => {
-        document.getElementById("edit-status").textContent = "✅ Subject updated!";
+        document.getElementById("edit-status").textContent = "Subject updated successfully!";
         setTimeout(() => {
             window.location.href = `/subjects/`;
         }, 1000);
