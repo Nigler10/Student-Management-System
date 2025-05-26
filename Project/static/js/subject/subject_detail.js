@@ -34,10 +34,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
             students.forEach(student => {
                 const li = document.createElement("li");
+                li.classList.add("student-entry");
+                li.setAttribute("data-student-id", student.id);
+            
                 let middle = student.middle_name ? ` ${student.middle_name}` : '';
-                li.innerHTML = `<a href="/students/${student.id}/">${student.last_name}, ${student.first_name}${middle}</a>`;
+                li.innerHTML = `
+                    <div class="student-info">
+                        <a href="/students/${student.id}/" class="student-name">${student.last_name}, ${student.first_name}${middle}</a>
+                    </div>
+                    <div class="student-actions">
+                        <a href="#" class="unenroll-btn" title="Unenroll Student">🗑️</a>
+                    </div>
+                `;
+            
+                li.addEventListener("click", function (e) {
+                    const clickedUnenroll = e.target.closest(".unenroll-btn");
+                    if (!clickedUnenroll) {
+                        window.location.href = `/students/${student.id}/`;
+                    }
+                });
+            
                 studentList.appendChild(li);
             });
+            
         })
         .catch(error => {
             console.error("Error loading subject data:", error);

@@ -92,9 +92,10 @@ button {
 }
 
 #edit-status {
+    color: green !important;
     text-align: center;
     margin-top: 15px;
-    color: #555;
+    font-weight: bold;
 }
 
 /* Responsive fallback for mobile */

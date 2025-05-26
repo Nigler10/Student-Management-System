@@ -74,8 +74,54 @@ ul#enrolled-students li a {
     text-decoration: none;
 }
 
-ul#enrolled-students li a:hover {
+/* Student Entry: Block is clickable */
+.student-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.student-entry:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Inside: Link stays styled */
+.student-entry .student-name {
+    color: #0057a3;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.student-entry .student-name:hover {
     text-decoration: underline;
+}
+
+/* Action button (Unenroll) */
+.student-entry .student-actions {
+    margin-left: auto;
+}
+
+.student-entry .unenroll-btn {
+    background-color: transparent;
+    color: #a00;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.student-entry .unenroll-btn:hover {
+    background-color: #fbeaea;
+    cursor: pointer;
 }
 
 /* Mobile Friendly */
