@@ -37,9 +37,6 @@ class StudentDetailSerializer(serializers.ModelSerializer):
         return EnrollmentDetailSerializer(enrollments, many=True).data
 
 # Subject Serializers
-
-# Subject Serializers
-
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject

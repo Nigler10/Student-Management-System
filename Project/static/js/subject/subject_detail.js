@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             // Set subject title and code
-            document.getElementById("subject-title").textContent = data.title;
+            document.getElementById("subject-title").textContent = `❮ ${data.title}`;
             document.getElementById("subject-code").textContent = `Code: ${data.code}`;
             document.getElementById("edit-btn").href = `/subjects/${data.id}/edit/`;
             document.getElementById("delete-btn").addEventListener("click", (e) => {

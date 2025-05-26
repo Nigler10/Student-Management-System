@@ -1,9 +1,17 @@
 /* Subject Detail Title */
 #subject-title {
+    text-decoration: none;
     font-size: 2rem;
-    font-weight: bold;
+    margin-right: 10px;
     color: #0057a3;
-    margin-bottom: 5px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    font-weight: bold;
+}
+
+#subject-title:hover {
+    background-color: #e0e0e0;
 }
 
 /* Subject Code Style */
