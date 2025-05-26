@@ -30,7 +30,38 @@
                 <label for="email">Email:</label>
                 <input type="email" name="email" required>
             </div>
+
+            <div class="form-group">
+                <label for="section">Section:</label>
+                <select name="section" required>
+                    <option value="">Select section</option>
+                    <option value="HM">Headless Mami</option>
+                    <option value="HQ">Holy Quintet</option>
+                    <option value="WPS">Walpurgisnacht Section</option>
+                    <option value="KMS">Kyubey Monitoring Squad</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="birthdate">Birthdate:</label>
+                <input type="date" name="birthdate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sex">Sex:</label>
+                <select name="sex" required>
+                    <option value="">Select sex</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="contact_number">Contact Number:</label>
+                <input type="text" name="contact_number" placeholder="0912 345 6789" pattern="^09\d{2} \d{3} \d{4}$" required>
+            </div>
         </div>
+
         <p id="edit-status"></p>
         <div class="form-buttons">
             <button type="submit" class="update-btn">Update</button>

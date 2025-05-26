@@ -6,7 +6,10 @@ from .models import Student, Subject, Enrollment, Grade
 class StudentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['student_id', 'first_name', 'middle_name', 'last_name', 'email']
+        fields = [
+            'student_id', 'first_name', 'middle_name', 'last_name', 'email',
+            'section', 'birthdate', 'sex', 'contact_number'
+        ]
 
 class EnrolledStudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,7 +23,9 @@ class StudentDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = [
-            'id', 'student_id', 'email', 'first_name', 'middle_name', 'last_name',
+            'id', 'student_id', 'email',
+            'first_name', 'middle_name', 'last_name',
+            'section', 'birthdate', 'sex', 'contact_number',
             'full_name', 'enrollments'
         ]
 

@@ -7,11 +7,15 @@
 {% endblock %}
 
 {% block content %}
-<h2>Student Profile</h2>
+<h2><a href="/" id="back-btn">❮ Student Profile</a></h2>
 <div id="student-info">
     <h3 id="student-name"></h3>
     <p><strong>Email:</strong> <span id="student-email"></span></p>
     <p><strong>Student ID:</strong> <span id="student-id"></span></p>
+    <p><strong>Section:</strong> <span id="student-section"></span></p>
+    <p><strong>Birthdate:</strong> <span id="student-birthdate"></span></p>
+    <p><strong>Sex:</strong> <span id="student-sex"></span></p>
+    <p><strong>Contact Number:</strong> <span id="student-contact"></span></p>
 
     <div class="student-actions">
         <a id="edit-student-btn" class="action-btn" href="#">✏️ Edit</a>
@@ -19,7 +23,7 @@
     </div>
 </div>
 
-<!-- Delete Student Modal (reusing existing) -->
+<!-- Delete Student Modal -->
 <div id="delete-modal" class="modal">
     <div class="modal-content">
         <h3>Confirm Delete</h3>
@@ -34,18 +38,9 @@
         </form>
     </div>
 </div>
-
-<div id="enrollments"></div>
-<div id="gradeModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="modal-content-body"></div>
-    </div>
-</div>
 {% endblock %}
 
 {% block scripts %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="{% static 'js/config.js' %}"></script>
 <script src="{% static 'js/student/student_detail.js' %}"></script>
 <script src="{% static 'js/student/student_delete.js' %}"></script>

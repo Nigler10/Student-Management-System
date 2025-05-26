@@ -11,27 +11,59 @@
 
 <div class="form-wrapper">
     <form id="create-student-form" class="form-container">
-        <div class="form-row">
-            <div class="form-group">
-                <label>First Name: <input type="text" name="first_name" required></label>
-            </div>
-            <div class="form-group">
-                <label>Middle Name: <input type="text" name="middle_name"></label>
-            </div>
-        </div>
 
-        <div class="form-row">
+        <div class="form-grid">
             <div class="form-group">
-                <label>Last Name: <input type="text" name="last_name" required></label>
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" id="first_name" required>
             </div>
-            <div class="form-group">
-                <label>Student ID: <input type="text" name="student_id" required></label>
-            </div>
-        </div>
 
-        <div class="form-row">
-            <div class="form-group full-width">
-                <label>Email: <input type="email" name="email" required></label>
+            <div class="form-group">
+                <label for="middle_name">Middle Name</label>
+                <input type="text" name="middle_name" id="middle_name">
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" id="last_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="student_id">Student ID</label>
+                <input type="text" name="student_id" id="student_id" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="section">Section</label>
+                <select name="section" id="section" required>
+                    <option value="HM">Headless Mami</option>
+                    <option value="HQ">Holy Quintet</option>
+                    <option value="WPS">Walpurgisnacht Section</option>
+                    <option value="KMS">Kyubey Monitoring Squad</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="birthdate">Birthdate</label>
+                <input type="date" name="birthdate" id="birthdate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sex">Sex</label>
+                <select name="sex" id="sex" required>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="contact_number">Contact Number</label>
+                <input type="text" name="contact_number" id="contact_number" placeholder="0912 345 6789" required>
             </div>
         </div>
 

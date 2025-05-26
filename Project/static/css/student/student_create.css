@@ -4,7 +4,6 @@ body {
     color: #333;
 }
 
-/* Wrapper to center the form */
 .form-wrapper {
     display: flex;
     justify-content: center;
@@ -12,63 +11,56 @@ body {
     padding: 20px;
 }
 
-/* Form container like a card */
 .form-container {
     background-color: #fff;
     padding: 25px 30px;
     border-radius: 10px;
-    max-width: 600px;
+    max-width: 1000px;
     width: 100%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Each row of fields */
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-    gap: 15px;
+/* 3-column grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-/* Each input group */
 .form-group {
-    flex: 1 1 45%;
-}
-
-.form-group.full-width {
-    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
-    display: block;
     font-weight: bold;
     font-size: 0.95rem;
     margin-bottom: 5px;
     color: #333;
 }
 
-input {
-    width: 100%;
+input,
+select {
     padding: 8px 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1rem;
     box-sizing: border-box;
     transition: border-color 0.2s ease-in-out;
+    width: 100%;
 }
 
-input:focus {
+input:focus,
+select:focus {
     border-color: #0057a3;
     outline: none;
 }
 
-/* Buttons */
 .form-buttons {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 button {
@@ -99,20 +91,15 @@ button {
     background-color: #7e7e7e;
 }
 
-/* Status message */
 #create-status {
     text-align: center;
     margin-top: 15px;
     color: #555;
 }
 
-/* Responsive tweaks */
-@media (max-width: 600px) {
-    .form-row {
-        flex-direction: column;
-    }
-
-    .form-group {
-        flex: 1 1 100%;
+/* Responsive fallback for mobile */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 }
