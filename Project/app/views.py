@@ -4,7 +4,8 @@ from .models import Student, Subject, Enrollment, Grade
 from .serializers import (
     StudentDetailSerializer, StudentCreateSerializer,
     SubjectDetailSerializer, SubjectSerializer,
-    EnrollmentDetailSerializer, GradeSerializer
+    EnrollmentDetailSerializer, EnrollmentListSerializer,
+     GradeSerializer
 )
 
 # API Views
@@ -27,7 +28,11 @@ class SubjectViewSet(viewsets.ModelViewSet):
 
 class EnrollmentViewSet(viewsets.ModelViewSet):
     queryset = Enrollment.objects.all()
-    serializer_class = EnrollmentDetailSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return EnrollmentListSerializer
+        return EnrollmentDetailSerializer
 
 class GradeViewSet(viewsets.ModelViewSet):
     queryset = Grade.objects.all()
@@ -64,3 +69,19 @@ def create_subject(request):
 def edit_subject(request, subject_id):
     subject = get_object_or_404(Subject, pk=subject_id)
     return render(request, 'subject/subject_edit.html', {'subject_id': subject.id})
+
+# HTML Views (Enrollment)
+
+def enrollment_list(request):
+    return render(request, 'enrollment/enrollment_list.html')
+
+def enrollment_detail(request, enrollment_id):
+    enrollment = get_object_or_404(Enrollment, pk=enrollment_id)
+    return render(request, 'enrollment/enrollment_detail.html', {'enrollment_id': enrollment.id})
+
+def create_enrollment(request):
+    return render(request, 'enrollment/enrollment_create.html')
+
+def edit_enrollment(request, enrollment_id):
+    enrollment = get_object_or_404(Enrollment, pk=enrollment_id)
+    return render(request, 'enrollment/enrollment_edit.html', {'enrollment_id': enrollment.id})

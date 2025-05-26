@@ -1,0 +1,34 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/enrollment/enrollment_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="enrollment-list-container">
+    <h2 class="blue">Enrollment List</h2> 
+    <div class="enroll-button-container">
+        <a href="/enrollments/create/" class="btn-enroll">➕ Enroll Student</a>
+    </div>    
+    <table id="enrollment-table">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Subject</th>
+                <th>Date Enrolled</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="enrollment-table-body">
+            <!-- Populated by JS -->
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/config.js' %}"></script>
+<script src="{% static 'js/enrollment/enrollment_list.js' %}"></script>
+{% endblock %}

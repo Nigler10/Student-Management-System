@@ -75,6 +75,31 @@ class SubjectDetailSerializer(serializers.ModelSerializer):
 
 # Enrollment Serializers
 
+class EnrollmentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Enrollment
+        fields = ['id', 'student', 'subject', 'is_active']
+
+    def validate(self, data):
+        # Prevent duplicate active enrollments
+        if Enrollment.objects.filter(
+            student=data['student'], subject=data['subject']
+        ).exists():
+            raise serializers.ValidationError("This student is already enrolled in this subject.")
+        return data
+
+class EnrollmentListSerializer(serializers.ModelSerializer):
+    student_display = serializers.StringRelatedField(source='student')
+    subject_display = serializers.StringRelatedField(source='subject')
+
+    class Meta:
+        model = Enrollment
+        fields = [
+            'id', 'student', 'student_display',
+            'subject', 'subject_display',
+            'date_enrolled', 'is_active'
+        ]
+
 class EnrollmentDetailSerializer(serializers.ModelSerializer):
     student = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all())
     student_display = serializers.StringRelatedField(source='student', read_only=True)
@@ -95,6 +120,11 @@ class EnrollmentDetailSerializer(serializers.ModelSerializer):
     def get_grades(self, obj):
         grades = obj.grade_set.all()
         return GradeSerializer(grades, many=True).data
+
+class EnrollmentToggleActiveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Enrollment
+        fields = ['is_active']
 
 # Grade Serializers
 

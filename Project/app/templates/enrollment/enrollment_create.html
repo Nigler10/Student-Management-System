@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/enrollment/enrollment_create.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="enrollment-create-container">
+    <h2>Enroll Student</h2>
+    <form id="enrollment-form">
+        <div class="form-group">
+            <label for="student">Select Student</label>
+            <select id="student" name="student" required>
+                <option value="">-- Choose Student --</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Select Subject</label>
+            <select id="subject" name="subject" required>
+                <option value="">-- Choose Subject --</option>
+            </select>
+        </div>
+
+        <button type="submit" id="submit-btn" disabled>Enroll</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/enrollment/enrollment_create.js' %}"></script>
+{% endblock %}
