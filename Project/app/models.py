@@ -25,8 +25,6 @@ class Student(models.Model):
     last_name = models.CharField(max_length=100)
     student_id = models.CharField(max_length=20, unique=True)
     email = models.EmailField(unique=True)
-
-    # Newly added fields:
     section = models.CharField(max_length=10, choices=SECTION_CHOICES)
     birthdate = models.DateField()
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
@@ -38,17 +36,12 @@ class Student(models.Model):
 class Subject(models.Model):
     title = models.CharField(max_length=100)
     code = models.CharField(max_length=10, unique=True)
-
-    # 🧮 Grade distribution (percentages)
     quiz_weight = models.DecimalField(max_digits=5, decimal_places=2, default=25.00)
     activity_weight = models.DecimalField(max_digits=5, decimal_places=2, default=25.00)
     exam_weight = models.DecimalField(max_digits=5, decimal_places=2, default=50.00)
-
-    # 🔒 Grade locking
     grading_locked = models.BooleanField(default=False)
 
     def clean(self):
-        # 🔍 Validate grade distribution total = 100%
         total = self.quiz_weight + self.activity_weight + self.exam_weight
         if total != 100:
             raise ValidationError("Grade distribution must total 100%.")
@@ -64,12 +57,16 @@ class Subject(models.Model):
 class Enrollment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    date_enrolled = models.DateField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)  # Optional toggle for unenroll
 
     class Meta:
-        unique_together = ('student', 'subject')
+        constraints = [
+            models.UniqueConstraint(fields=['student', 'subject'], name='unique_enrollment')
+        ]
 
     def __str__(self):
-        return f"{self.student} enrolled in {self.subject}"
+        return f"{self.student} → {self.subject}"
 
 GRADE_TYPE_CHOICES = (
     ('activity', 'Activity'),
@@ -80,7 +77,7 @@ GRADE_TYPE_CHOICES = (
 class Grade(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
     grade_type = models.CharField(max_length=10, choices=GRADE_TYPE_CHOICES)
-    title = models.CharField(max_length=100)  # e.g., "Quiz 1"
+    title = models.CharField(max_length=100)
     score = models.FloatField()
 
     def __str__(self):

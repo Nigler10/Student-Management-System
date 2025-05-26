@@ -47,7 +47,7 @@ class SubjectSerializer(serializers.ModelSerializer):
         ]
 
     def update(self, instance, validated_data):
-        # 👮 Prevent changes to grade weights if locked
+        # Prevent changes to grade weights if locked
         if instance.grading_locked:
             for field in ['quiz_weight', 'activity_weight', 'exam_weight']:
                 if field in validated_data:
