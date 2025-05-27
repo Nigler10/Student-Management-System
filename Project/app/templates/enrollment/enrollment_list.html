@@ -3,20 +3,43 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/enrollment/enrollment_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/enrollment/enrollment_create.css' %}">
 {% endblock %}
 
 {% block content %}
 <h2 class="blue">Enrollment List</h2>
 <div class="enroll-button-container">
-    <a href="/enrollments/create/" class="btn-enroll">➕ Enroll Student</a>
+    <button id="open-create-modal" class="btn-enroll">➕ Create Enrollment</button>
 </div>
 
 <ul id="enrollment-list">
     <!-- JS will populate this -->
 </ul>
+
+<div id="create-enrollment-modal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Create Enrollment</h2>
+        <form id="enrollment-create-form">
+            <label for="student">Student:</label>
+            <select id="student" name="student" required></select>
+
+            <label for="subject">Subject:</label>
+            <select id="subject" name="subject" required></select>
+
+            <label>
+                <input type="checkbox" id="is_active" name="is_active" checked>
+                Active
+            </label>
+
+            <button type="submit" id="submit-create-enrollment" disabled>Create</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script src="{% static 'js/config.js' %}"></script>
 <script src="{% static 'js/enrollment/enrollment_list.js' %}"></script>
+<script src="{% static 'js/enrollment/enrollment_create.js' %}" defer></script>
 {% endblock %}
