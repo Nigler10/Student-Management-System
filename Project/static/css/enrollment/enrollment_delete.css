@@ -1,0 +1,84 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: #d32f2f;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 1rem;
+}
+
+#unenroll-checkbox {
+    margin: 10px 0;
+}
+
+.modal-content label {
+    font-size: 0.95rem;
+    color: #333;
+    user-select: none;
+}
+
+.modal-content .button-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#confirm-unenroll-btn {
+    background-color: #d32f2f;
+    color: #fff;
+}
+
+#confirm-unenroll-btn:disabled {
+    background-color: #f8bdbd;
+    cursor: not-allowed;
+}
+
+#cancel-unenroll {
+    background-color: #9e9e9e;
+    color: #fff;
+}
+
+#cancel-unenroll:hover {
+    background-color: #7e7e7e;
+}
+
+#confirm-unenroll-btn:hover:enabled {
+    background-color: #b71c1c;
+}

@@ -3,6 +3,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/enrollment/enrollment_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/enrollment/enrollment_delete.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,9 +20,25 @@
         <a id="unenroll-btn" class="action-btn" href="#">🗑️ Unenroll</a>
     </div>
 </div>
+
+<div id="unenroll-modal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Unenroll</h3>
+        <p>Are you sure you want to unenroll this student from this subject?</p>
+        <form id="unenroll-form">
+            <input type="checkbox" id="unenroll-checkbox">
+            <label for="unenroll-checkbox">I understand this action cannot be undone.</label>
+            <div class="button-group">
+                <button type="button" id="cancel-unenroll">Cancel</button>
+                <button type="submit" id="confirm-unenroll-btn" disabled>Unenroll</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script src="{% static 'js/config.js' %}"></script>
 <script src="{% static 'js/enrollment/enrollment_detail.js' %}"></script>
+<script src="{% static 'js/enrollment/enrollment_delete.js' %}"></script>
 {% endblock %}

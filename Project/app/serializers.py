@@ -102,24 +102,33 @@ class EnrollmentListSerializer(serializers.ModelSerializer):
         ]
 
 class EnrollmentDetailSerializer(serializers.ModelSerializer):
-    student_display = serializers.SerializerMethodField()
-    subject_display = serializers.SerializerMethodField()
+    student_name = serializers.SerializerMethodField()
     section_name = serializers.SerializerMethodField()
+    subject_name = serializers.SerializerMethodField()
+    enrolled_on = serializers.DateField(source='date_enrolled', format='%Y-%m-%d')
     student_id = serializers.IntegerField(source='student.id')
 
     class Meta:
         model = Enrollment
-        fields = ['id', 'student_display', 'subject_display', 'section_name', 'date_enrolled', 'is_active', 'student_id']
+        fields = [
+            'id',
+            'student_name',
+            'section_name',
+            'subject_name',
+            'enrolled_on',
+            'student_id'
+        ]
 
-    def get_student_display(self, obj):
-        return str(obj.student)
-
-    def get_subject_display(self, obj):
-        return str(obj.subject)
+    def get_student_name(self, obj):
+        middle = f" {obj.student.middle_name}" if obj.student.middle_name else ""
+        return f"{obj.student.last_name}, {obj.student.first_name}{middle}"
 
     def get_section_name(self, obj):
         from app.models import SECTION_CHOICES
         return dict(SECTION_CHOICES).get(obj.student.section, obj.student.section)
+
+    def get_subject_name(self, obj):
+        return obj.subject.title
 
 class EnrollmentToggleActiveSerializer(serializers.ModelSerializer):
     class Meta:

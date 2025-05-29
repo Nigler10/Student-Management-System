@@ -12,12 +12,12 @@ function fetchEnrollments() {
             data.forEach(enrollment => {
                 const item = document.createElement("li");
                 item.classList.add("enrollment-item");
-            
+
                 const student = enrollment.student_display;
                 const subject = enrollment.subject_display;
                 const date = enrollment.date_enrolled;
                 const isActive = enrollment.is_active;
-            
+
                 item.innerHTML = `
                     <div class="enrollment-info">
                         <div class="enrollment-student"><strong>Student:</strong> ${student}</div>
@@ -29,12 +29,12 @@ function fetchEnrollments() {
                     </div>
                     <div class="enrollment-actions">
                         <a href="/enrollments/${enrollment.id}/" class="btn-view">View</a>
-                        <a href="/enrollments/${enrollment.id}/edit/" class="btn-edit">Edit</a>
+                        <a href="#" class="btn-unenroll" data-id="${enrollment.id}">Unenroll</a>
                     </div>
                 `;
                 list.appendChild(item);
             });
-            
+
         })
         .catch(error => {
             console.error("Error fetching enrollments:", error);
