@@ -16,7 +16,6 @@ urlpatterns = [
     
     # Enrollment HTML
     path('enrollments/', views.enrollment_list, name='enrollment-list'),
-    path('enrollments/create/', views.create_enrollment, name='create-enrollment'),
     path('enrollments/<int:enrollment_id>/', views.enrollment_detail, name='enrollment-detail'),
     path('enrollments/<int:enrollment_id>/edit/', views.edit_enrollment, name='edit-enrollment'),
 ]

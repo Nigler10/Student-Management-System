@@ -1,0 +1,74 @@
+/* Layout & container */
+main {
+    padding: 20px;
+}
+
+#enrollment-info {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#enrollment-info p {
+    margin: 6px 0;
+    font-size: 1em;
+}
+
+/* Back button */
+#back-btn {
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-right: 10px;
+    color: #0057a3;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+#back-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Action button */
+.enrollment-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.enrollment-actions .action-btn {
+    background-color: #d32f2f;
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.enrollment-actions .action-btn:hover {
+    background-color: #b71c1c;
+}
+
+.action-btn.view-profile {
+    background-color: #1976d2;
+}
+
+.action-btn.view-profile:hover {
+    background-color: #0d47a1;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .enrollment-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .enrollment-actions .action-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

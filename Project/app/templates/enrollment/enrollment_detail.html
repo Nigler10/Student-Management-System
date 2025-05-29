@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/enrollment/enrollment_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2><a href="/enrollments/" id="back-btn">❮ Enrollment Details</a></h2>
+
+<div id="enrollment-info">
+    <p><strong>Student Name:</strong> <span id="enrollment-student-name"></span></p>
+    <p><strong>Section:</strong> <span id="enrollment-student-section"></span></p>
+    <p><strong>Subject:</strong> <span id="enrollment-subject-name"></span></p>
+    <p><strong>Enrolled On:</strong> <span id="enrollment-date"></span></p>
+
+    <div class="enrollment-actions">
+        <a id="view-profile-btn" class="action-btn view-profile" href="#">👤 View Student Profile</a>
+        <a id="unenroll-btn" class="action-btn" href="#">🗑️ Unenroll</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/config.js' %}"></script>
+<script src="{% static 'js/enrollment/enrollment_detail.js' %}"></script>
+{% endblock %}

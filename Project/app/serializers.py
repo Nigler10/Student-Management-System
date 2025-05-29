@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Student, Subject, Enrollment, Grade
+from app.models import SECTION_CHOICES
 
 # Student Serializers
 
@@ -101,25 +102,24 @@ class EnrollmentListSerializer(serializers.ModelSerializer):
         ]
 
 class EnrollmentDetailSerializer(serializers.ModelSerializer):
-    student = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all())
-    student_display = serializers.StringRelatedField(source='student', read_only=True)
-
-    subject = serializers.PrimaryKeyRelatedField(queryset=Subject.objects.all())
-    subject_display = serializers.StringRelatedField(source='subject', read_only=True)
-
-    grades = serializers.SerializerMethodField()
+    student_display = serializers.SerializerMethodField()
+    subject_display = serializers.SerializerMethodField()
+    section_name = serializers.SerializerMethodField()
+    student_id = serializers.IntegerField(source='student.id')
 
     class Meta:
         model = Enrollment
-        fields = [
-            'id', 'student', 'student_display',
-            'subject', 'subject_display',
-            'grades'
-        ]
+        fields = ['id', 'student_display', 'subject_display', 'section_name', 'date_enrolled', 'is_active', 'student_id']
 
-    def get_grades(self, obj):
-        grades = obj.grade_set.all()
-        return GradeSerializer(grades, many=True).data
+    def get_student_display(self, obj):
+        return str(obj.student)
+
+    def get_subject_display(self, obj):
+        return str(obj.subject)
+
+    def get_section_name(self, obj):
+        from app.models import SECTION_CHOICES
+        return dict(SECTION_CHOICES).get(obj.student.section, obj.student.section)
 
 class EnrollmentToggleActiveSerializer(serializers.ModelSerializer):
     class Meta:
