@@ -10,7 +10,7 @@
 {% block content %}
 <h2 class="blue">Enrollment List</h2>
 <div class="enroll-button-container">
-    <button class="btn-enroll">➕ Create Enrollment</button>
+    <button class="btn-enroll" onclick="document.getElementById('enrollment-create-modal').classList.remove('hidden')">+ Enroll Student</button>
 </div>
 
 <ul id="enrollment-list">
@@ -33,6 +33,48 @@
     </div>
 </div>
 
+<!-- 🎓 Enrollment Create Modal -->
+<div id="enrollment-create-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h2>Enroll Student</h2>
+        <form id="enrollment-create-form">
+            <div class="form-group">
+                <label for="modal-section">Section</label>
+                <select id="modal-section" name="section" required>
+                    <option value="">Select a section</option>
+                    <option value="HM">Headless Mami</option>
+                    <option value="HQ">Holy Quintet</option>
+                    <option value="WPS">Walpurgisnacht Section</option>
+                    <option value="KMS">Kyubey Monitoring Squad</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="modal-student">Student</label>
+                <select id="modal-student" name="student" required>
+                    <option value="">Select a student</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="modal-subject">Subject</label>
+                <select id="modal-subject" name="subject" required>
+                    <option value="">Select a subject</option>
+                </select>
+            </div>
+
+            <p id="enrollment-warning" class="warning-text hidden">
+                🚫 This student is already enrolled in the selected subject.
+            </p>
+
+            <div class="modal-buttons">
+                <button type="submit" class="create-btn" id="submit-enrollment">Enroll</button>
+                <button type="button" class="cancel-btn" id="close-enrollment-modal">Cancel</button>
+            </div>
+            <p id="enrollment-status" class="status-text"></p>
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}

@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets
+from rest_framework import viewsets, generics, filters
 from .models import Student, Subject, Enrollment, Grade
 from .serializers import (
     StudentDetailSerializer, StudentCreateSerializer,
     SubjectDetailSerializer, SubjectSerializer,
-    EnrollmentDetailSerializer, EnrollmentListSerializer,
-     GradeSerializer
+    EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentSerializer,
+    GradeSerializer
 )
 
 # API Views
@@ -33,6 +33,19 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return EnrollmentListSerializer
         return EnrollmentDetailSerializer
+
+class EnrollmentListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = EnrollmentSerializer
+
+    def get_queryset(self):
+        queryset = Enrollment.objects.all()
+        student = self.request.query_params.get('student')
+        subject = self.request.query_params.get('subject')
+        if student:
+            queryset = queryset.filter(student_id=student)
+        if subject:
+            queryset = queryset.filter(subject_id=subject)
+        return queryset
 
 class GradeViewSet(viewsets.ModelViewSet):
     queryset = Grade.objects.all()

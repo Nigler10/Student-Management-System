@@ -1,23 +1,79 @@
 /* enrollment_create.css */
 
-.enrollment-form {
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(34, 34, 34, 0.8);
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
     gap: 1rem;
 }
 
-.enrollment-form select,
-.enrollment-form button {
-    padding: 0.5rem;
-    font-size: 1rem;
+.create-btn, .cancel-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.enrollment-form select:disabled {
-    background-color: #f0f0f0;
-    cursor: not-allowed;
+.create-btn {
+    background-color: #28a745;
+    color: white;
 }
 
-#section-note {
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.warning-text {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+.status-text {
+    margin-top: 1rem;
     font-size: 0.9rem;
-    color: gray;
+    color: #2c3e50;
 }
