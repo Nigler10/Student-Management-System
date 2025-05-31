@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets, generics, filters
+from app.models import SECTION_CHOICES
+from rest_framework import viewsets
+from django.conf import settings
 from .models import Student, Subject, Enrollment, Grade
 from .serializers import (
     StudentDetailSerializer, StudentCreateSerializer,
     SubjectDetailSerializer, SubjectSerializer,
-    EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentSerializer,
-    GradeSerializer
+    EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentCreateSerializer,
+     GradeSerializer
 )
 
 # API Views
@@ -28,24 +30,28 @@ class SubjectViewSet(viewsets.ModelViewSet):
 
 class EnrollmentViewSet(viewsets.ModelViewSet):
     queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentDetailSerializer  # default
+
+    def get_queryset(self):
+        queryset = Enrollment.objects.all()
+        student_id = self.request.query_params.get('student')
+        subject_id = self.request.query_params.get('subject')
+
+        if student_id:
+            queryset = queryset.filter(student__id=student_id)
+        if subject_id:
+            queryset = queryset.filter(subject__id=subject_id)
+        return queryset
 
     def get_serializer_class(self):
         if self.action == 'list':
             return EnrollmentListSerializer
+        elif self.action == 'create':
+            return EnrollmentCreateSerializer
+        elif self.action == 'update' or self.action == 'partial_update':
+            return EnrollmentCreateSerializer  # optional, in case you support editing
         return EnrollmentDetailSerializer
 
-class EnrollmentListCreateAPIView(generics.ListCreateAPIView):
-    serializer_class = EnrollmentSerializer
-
-    def get_queryset(self):
-        queryset = Enrollment.objects.all()
-        student = self.request.query_params.get('student')
-        subject = self.request.query_params.get('subject')
-        if student:
-            queryset = queryset.filter(student_id=student)
-        if subject:
-            queryset = queryset.filter(subject_id=subject)
-        return queryset
 
 class GradeViewSet(viewsets.ModelViewSet):
     queryset = Grade.objects.all()
@@ -92,8 +98,15 @@ def enrollment_detail(request, enrollment_id):
     enrollment = get_object_or_404(Enrollment, pk=enrollment_id)
     return render(request, 'enrollment/enrollment_detail.html', {'enrollment_id': enrollment.id})
 
-def create_enrollment(request):
-    return render(request, 'enrollment/enrollment_create.html')
+def enrollment_create_view(request):
+    section_choices = SECTION_CHOICES
+    students = Student.objects.all()
+    subjects = Subject.objects.all()
+    return render(request, 'enrollment/enrollment_create.html', {
+        'section_choices': section_choices,
+        'students': students,
+        'subjects': subjects
+    })
 
 def edit_enrollment(request, enrollment_id):
     enrollment = get_object_or_404(Enrollment, pk=enrollment_id)

@@ -1,0 +1,60 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/enrollment/enrollment_create.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="enrollment-create-container">
+    <h2>Create Enrollment</h2>
+    <form id="enrollmentCreateForm">
+        <div class="form-group">
+            <label for="section">Section</label>
+            <select id="sectionDropdown" name="section">
+                <option value="">Select section...</option>
+                <!-- Will be filled dynamically -->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="student">Student</label>
+            <select id="student" name="student" disabled>
+                <option value="">Select student...</option>
+                <!-- Filled dynamically -->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+                <option value="">Select subject...</option>
+                <!-- Filled dynamically -->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="is_active">
+                <input type="checkbox" id="is_active" name="is_active" checked>
+                Active Enrollment
+            </label>
+        </div>
+
+        <p id="enrollment-warning" style="color: red; display: none;">
+            This student is already enrolled in the selected subject.
+        </p>
+
+        <button type="submit" id="submitEnrollment" disabled>Create Enrollment</button>
+        <button type="button" id="cancelBtn">Cancel</button>
+    </form>
+</div>
+{{ section_choices|json_script:"sectionChoices" }}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/config.js' %}"></script>
+<script src="{% static 'js/enrollment/enrollment_create.js' %}"></script>
+<script>
+    const sectionChoices = JSON.parse(document.getElementById('sectionChoices').textContent);
+</script>
+{% endblock %}

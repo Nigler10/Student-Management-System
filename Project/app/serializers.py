@@ -75,16 +75,14 @@ class SubjectDetailSerializer(serializers.ModelSerializer):
         return EnrolledStudentSerializer(students, many=True).data
 
 # Enrollment Serializers
-class EnrollmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Enrollment
-        fields = '__all__'
+
 class EnrollmentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enrollment
         fields = ['id', 'student', 'subject', 'is_active']
 
     def validate(self, data):
+        # Prevent duplicate active enrollments
         if Enrollment.objects.filter(
             student=data['student'], subject=data['subject']
         ).exists():
@@ -145,3 +143,4 @@ class GradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Grade
         fields = ['id', 'enrollment', 'enrollment_display', 'title', 'grade_type', 'score']
+        
