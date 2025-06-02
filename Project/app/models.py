@@ -78,8 +78,22 @@ class Grade(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
     grade_type = models.CharField(max_length=10, choices=GRADE_TYPE_CHOICES)
     title = models.CharField(max_length=100)
-    score = models.FloatField()
+    max_score = models.FloatField()
+    score = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['enrollment', 'grade_type', 'title'], name='unique_grade_per_student')
+        ]
+
+    def clean(self):
+        if self.score is not None and self.max_score is not None:
+            if self.score > self.max_score:
+                raise ValidationError("Score cannot exceed max score.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.enrollment} - {self.grade_type} - {self.title}: {self.score}"
-
+        return f"{self.enrollment} - {self.grade_type} - {self.title}: {self.score or '-'} / {self.max_score}"

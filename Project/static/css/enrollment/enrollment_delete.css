@@ -21,6 +21,17 @@
     text-align: center;
 }
 
+.unenroll-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
 .modal-content h3 {
     color: #d32f2f;
     font-size: 1.6rem;

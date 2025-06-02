@@ -7,11 +7,10 @@ from .serializers import (
     StudentDetailSerializer, StudentCreateSerializer,
     SubjectDetailSerializer, SubjectSerializer,
     EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentCreateSerializer,
-     GradeSerializer
+    GradeSerializer
 )
 
 # API Views
-
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
 
@@ -52,13 +51,41 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
             return EnrollmentCreateSerializer  # optional, in case you support editing
         return EnrollmentDetailSerializer
 
+    def perform_create(self, serializer):
+        enrollment = serializer.save()
+
+        # Get all unique grades associated with the subject (not per student)
+        existing_grades = Grade.objects.filter(
+            enrollment__subject=enrollment.subject
+        ).values('grade_type', 'title', 'max_score').distinct()
+
+        # Clone those grades for this new enrollment
+        for grade_data in existing_grades:
+            Grade.objects.create(
+                enrollment=enrollment,
+                grade_type=grade_data['grade_type'],
+                title=grade_data['title'],
+                max_score=grade_data['max_score'],
+                score=None  # new grade has no score yet
+            )
 
 class GradeViewSet(viewsets.ModelViewSet):
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
 
-# HTML Views (Student)
+    def get_queryset(self):
+        queryset = Grade.objects.all()
+        enrollment_id = self.request.query_params.get('enrollment')
+        subject_id = self.request.query_params.get('subject')
 
+        if enrollment_id:
+            queryset = queryset.filter(enrollment__id=enrollment_id)
+        elif subject_id:
+            queryset = queryset.filter(enrollment__subject__id=subject_id)
+
+        return queryset
+
+# HTML Views (Student)
 def index(request):
     return render(request, "app/index.html")
 

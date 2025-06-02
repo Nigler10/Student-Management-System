@@ -105,19 +105,13 @@ class EnrollmentDetailSerializer(serializers.ModelSerializer):
     student_name = serializers.SerializerMethodField()
     section_name = serializers.SerializerMethodField()
     subject_name = serializers.SerializerMethodField()
+    subject_code = serializers.SerializerMethodField()
     enrolled_on = serializers.DateField(source='date_enrolled', format='%Y-%m-%d')
     student_id = serializers.IntegerField(source='student.id')
 
     class Meta:
         model = Enrollment
-        fields = [
-            'id',
-            'student_name',
-            'section_name',
-            'subject_name',
-            'enrolled_on',
-            'student_id'
-        ]
+        fields = ['id','student_name','section_name','subject_name','subject_code','enrolled_on','student_id']
 
     def get_student_name(self, obj):
         middle = f" {obj.student.middle_name}" if obj.student.middle_name else ""
@@ -130,6 +124,9 @@ class EnrollmentDetailSerializer(serializers.ModelSerializer):
     def get_subject_name(self, obj):
         return obj.subject.title
 
+    def get_subject_code(self, obj):
+        return obj.subject.code
+
 class EnrollmentToggleActiveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enrollment
@@ -137,10 +134,58 @@ class EnrollmentToggleActiveSerializer(serializers.ModelSerializer):
 
 # Grade Serializers
 
+class GradeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Grade
+        fields = [
+            'id', 'enrollment', 'grade_type', 'title', 'max_score', 'score'
+        ]
+
+    def validate(self, data):
+        score = data.get('score')
+        max_score = data.get('max_score')
+        if score is not None and max_score is not None and score > max_score:
+            raise serializers.ValidationError("Score cannot exceed max score.")
+        return data
+
+
 class GradeSerializer(serializers.ModelSerializer):
     enrollment_display = serializers.StringRelatedField(source='enrollment', read_only=True)
 
     class Meta:
         model = Grade
-        fields = ['id', 'enrollment', 'enrollment_display', 'title', 'grade_type', 'score']
-        
+        fields = [
+            'id', 'enrollment', 'enrollment_display',
+            'grade_type', 'title', 'max_score', 'score'
+        ]
+
+
+class GradePerStudentSerializer(serializers.ModelSerializer):
+    subject_title = serializers.SerializerMethodField()
+    weight = serializers.SerializerMethodField()
+    score_percentage = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Grade
+        fields = [
+            'id', 'title', 'grade_type',
+            'score', 'max_score', 'score_percentage',
+            'weight', 'subject_title'
+        ]
+
+    def get_subject_title(self, obj):
+        return obj.enrollment.subject.title
+
+    def get_weight(self, obj):
+        subject = obj.enrollment.subject
+        weights = {
+            'quiz': subject.quiz_weight,
+            'activity': subject.activity_weight,
+            'exam': subject.exam_weight,
+        }
+        return float(weights.get(obj.grade_type, 0))
+
+    def get_score_percentage(self, obj):
+        if obj.score is None or obj.max_score in (None, 0):
+            return None
+        return round((obj.score / obj.max_score) * 100, 2)
