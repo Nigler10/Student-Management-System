@@ -156,7 +156,6 @@ class EnrollmentGradeBreakdownSerializer(serializers.ModelSerializer):
         return result
 
 # Grade Serializers
-
 class GradeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Grade
@@ -171,7 +170,6 @@ class GradeCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Score cannot exceed max score.")
         return data
 
-
 class GradeSerializer(serializers.ModelSerializer):
     enrollment_display = serializers.StringRelatedField(source='enrollment', read_only=True)
 
@@ -181,7 +179,6 @@ class GradeSerializer(serializers.ModelSerializer):
             'id', 'enrollment', 'enrollment_display',
             'grade_type', 'title', 'max_score', 'score'
         ]
-
 
 class GradePerStudentSerializer(serializers.ModelSerializer):
     subject_title = serializers.SerializerMethodField()
@@ -212,3 +209,22 @@ class GradePerStudentSerializer(serializers.ModelSerializer):
         if obj.score is None or obj.max_score in (None, 0):
             return None
         return round((obj.score / obj.max_score) * 100, 2)
+
+class GradeDetailSerializer(serializers.ModelSerializer):
+    grade_type = serializers.CharField(source='get_grade_type_display')
+    
+    class Meta:
+        model = Grade
+        fields = ['id', 'title', 'grade_type', 'score', 'max_score']
+
+class GradeBulkUpdateSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    score = serializers.FloatField()
+    max_score = serializers.FloatField()
+
+    def validate(self, data):
+        if data['score'] > data['max_score']:
+            raise serializers.ValidationError("Score cannot exceed max_score.")
+        if data['score'] < 0 or data['max_score'] <= 0:
+            raise serializers.ValidationError("Invalid score or max_score.")
+        return data

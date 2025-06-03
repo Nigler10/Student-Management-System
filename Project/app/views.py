@@ -1,14 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from app.models import SECTION_CHOICES
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django.conf import settings
 from .models import Student, Subject, Enrollment, Grade
 from .serializers import (
     StudentDetailSerializer, StudentCreateSerializer,
     SubjectDetailSerializer, SubjectSerializer,
     EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentCreateSerializer, EnrollmentGradeBreakdownSerializer,
-    GradeSerializer
+    GradeSerializer, GradeDetailSerializer, GradeBulkUpdateSerializer
 )
 
 # API Views
@@ -70,10 +72,24 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
                 score=None  # new grade has no score yet
             )
 
-# views.py
 class EnrollmentGradeBreakdownView(generics.RetrieveAPIView):
     queryset = Enrollment.objects.all()
     serializer_class = EnrollmentGradeBreakdownSerializer
+
+class EnrollmentGradeDetailView(APIView):
+    def get(self, request, enrollment_id):
+        enrollment = get_object_or_404(Enrollment, id=enrollment_id)
+        grades = Grade.objects.filter(enrollment=enrollment)
+
+        # Assuming subject_weight is available per grade (e.g., stored or computed)
+        serialized_grades = GradeDetailSerializer(grades, many=True).data
+
+        return Response({
+            'grades': serialized_grades,
+            'subject_name': enrollment.subject_display if hasattr(enrollment, 'subject_display') else str(enrollment.subject),
+            'subject_code': enrollment.subject.code if hasattr(enrollment.subject, 'code') else str(enrollment.subject),
+        })
+
 class GradeViewSet(viewsets.ModelViewSet):
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
@@ -89,6 +105,22 @@ class GradeViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(enrollment__subject__id=subject_id)
 
         return queryset
+
+class GradeBulkUpdateView(APIView):
+    def put(self, request):
+        serializer = GradeBulkUpdateSerializer(data=request.data.get('grades', []), many=True)
+        serializer.is_valid(raise_exception=True)
+
+        for grade_data in serializer.validated_data:
+            try:
+                grade = Grade.objects.get(id=grade_data['id'])
+                grade.score = grade_data['score']
+                grade.max_score = grade_data['max_score']
+                grade.save()
+            except Grade.DoesNotExist:
+                continue  # Silently skip invalid grade ids
+
+        return Response({'status': 'updated'}, status=status.HTTP_200_OK)
 
 # HTML Views (Student)
 def index(request):
@@ -155,3 +187,6 @@ def edit_enrollment(request, enrollment_id):
 # HTML Views (Grade)
 def grade_create_view(request):
     return render(request, 'grade/grade_create.html')
+
+def enrollment_grades_page(request, enrollment_id):
+    return render(request, 'grade/grade_detail.html', {'enrollment_id': enrollment_id})

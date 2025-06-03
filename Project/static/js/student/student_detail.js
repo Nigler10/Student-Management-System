@@ -40,7 +40,7 @@ function renderSubjectCard(enrollment) {
 
   const viewGradeBtn = document.createElement("a");
   viewGradeBtn.textContent = "View Grade";
-  viewGradeBtn.href = `/grades/${enrollment.id}/`;  // adjust if needed
+  viewGradeBtn.href = `/enrollments/${enrollment.id}/grades/`;
   viewGradeBtn.classList.add("view-grade-btn");
 
   card.append(subjectTitle, subjectCode, chartContainer, viewGradeBtn);

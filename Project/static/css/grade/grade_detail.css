@@ -1,0 +1,81 @@
+#grade-header {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#grade-header h3 {
+  margin: 0;
+}
+
+#grade-header p {
+  color: #555;
+  margin: 4px 0 12px 0;
+}
+
+.grade-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.grade-actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+#edit-mode-btn {
+  background-color: #0077cc;
+  color: white;
+}
+
+#save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+#save-btn:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+#grade-table-container {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#grade-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#grade-table th,
+#grade-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+#grade-table input[type="number"] {
+  width: 80px;
+  padding: 4px;
+  text-align: center;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}

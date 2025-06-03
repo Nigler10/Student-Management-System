@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import EnrollmentGradeBreakdownView, subject_weights_view
+from .views import EnrollmentGradeBreakdownView, EnrollmentGradeDetailView, GradeBulkUpdateView, subject_weights_view
 
 urlpatterns = [
     # Student HTML
@@ -14,6 +14,7 @@ urlpatterns = [
     path('subjects/<int:subject_id>/', views.subject_detail, name='subject-detail'),
     path('subjects/create/', views.create_subject, name='create-subject'),
     path('subjects/<int:subject_id>/edit/', views.edit_subject, name='edit-subject'),
+    
     path('api/subjects/<str:subject_code>/weights/', subject_weights_view, name='subject-weights'),
 
     # Enrollment HTML
@@ -21,8 +22,12 @@ urlpatterns = [
     path('enrollments/create/', views.enrollment_create_view, name='enrollment_create'),
     path('enrollments/<int:enrollment_id>/', views.enrollment_detail, name='enrollment-detail'),
     path('enrollments/<int:enrollment_id>/edit/', views.edit_enrollment, name='edit-enrollment'),
+    path('enrollments/<int:enrollment_id>/grades/', views.enrollment_grades_page, name='enrollment-grades-page'),
+
     path('api/enrollments/<int:pk>/grade-breakdown/', EnrollmentGradeBreakdownView.as_view()),
+    path('api/enrollments/<int:enrollment_id>/grades/', EnrollmentGradeDetailView.as_view(), name='enrollment-grade-detail'),
 
     # Grade HTML
     path('grades/create/', views.grade_create_view, name='grade-create'),
+    path('grades/bulk_update/', GradeBulkUpdateView.as_view(), name='grade-bulk-update'),
 ]
