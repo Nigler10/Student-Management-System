@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import EnrollmentGradeBreakdownView, subject_weights_view
 
 urlpatterns = [
     # Student HTML
@@ -13,10 +14,15 @@ urlpatterns = [
     path('subjects/<int:subject_id>/', views.subject_detail, name='subject-detail'),
     path('subjects/create/', views.create_subject, name='create-subject'),
     path('subjects/<int:subject_id>/edit/', views.edit_subject, name='edit-subject'),
-    
+    path('api/subjects/<str:subject_code>/weights/', subject_weights_view, name='subject-weights'),
+
     # Enrollment HTML
     path('enrollments/', views.enrollment_list, name='enrollment-list'),
     path('enrollments/create/', views.enrollment_create_view, name='enrollment_create'),
     path('enrollments/<int:enrollment_id>/', views.enrollment_detail, name='enrollment-detail'),
     path('enrollments/<int:enrollment_id>/edit/', views.edit_enrollment, name='edit-enrollment'),
+    path('api/enrollments/<int:pk>/grade-breakdown/', EnrollmentGradeBreakdownView.as_view()),
+
+    # Grade HTML
+    path('grades/create/', views.grade_create_view, name='grade-create'),
 ]

@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 from app.models import SECTION_CHOICES
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from django.conf import settings
 from .models import Student, Subject, Enrollment, Grade
 from .serializers import (
     StudentDetailSerializer, StudentCreateSerializer,
     SubjectDetailSerializer, SubjectSerializer,
-    EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentCreateSerializer,
+    EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentCreateSerializer, EnrollmentGradeBreakdownSerializer,
     GradeSerializer
 )
 
@@ -69,6 +70,10 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
                 score=None  # new grade has no score yet
             )
 
+# views.py
+class EnrollmentGradeBreakdownView(generics.RetrieveAPIView):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentGradeBreakdownSerializer
 class GradeViewSet(viewsets.ModelViewSet):
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
@@ -116,6 +121,14 @@ def edit_subject(request, subject_id):
     subject = get_object_or_404(Subject, pk=subject_id)
     return render(request, 'subject/subject_edit.html', {'subject_id': subject.id})
 
+def subject_weights_view(request, subject_code):
+    subject = get_object_or_404(Subject, code=subject_code.upper())
+    return JsonResponse({
+        'quiz_weight': float(subject.quiz_weight),
+        'activity_weight': float(subject.activity_weight),
+        'exam_weight': float(subject.exam_weight)
+    })
+
 # HTML Views (Enrollment)
 
 def enrollment_list(request):
@@ -138,3 +151,7 @@ def enrollment_create_view(request):
 def edit_enrollment(request, enrollment_id):
     enrollment = get_object_or_404(Enrollment, pk=enrollment_id)
     return render(request, 'enrollment/enrollment_edit.html', {'enrollment_id': enrollment.id})
+
+# HTML Views (Grade)
+def grade_create_view(request):
+    return render(request, 'grade/grade_create.html')

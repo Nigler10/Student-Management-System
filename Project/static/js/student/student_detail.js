@@ -14,7 +14,7 @@ fetch(`${API_BASE_URL}api/students/${studentId}/`)
 
     if (data.enrollments && data.enrollments.length > 0) {
       data.enrollments.forEach(renderSubjectCard);
-    }
+    }    
   })
   .catch(error => console.error('Failed to load student details:', error));
 
@@ -22,63 +22,60 @@ function renderSubjectCard(enrollment) {
   const wrapper = document.getElementById("subject-cards-wrapper");
 
   const card = document.createElement("div");
-  card.className = "subject-card";
+  card.classList.add("subject-card");
 
-  // Title & Code
-  const title = document.createElement("h4");
-  title.textContent = enrollment.subject_name;
-  const code = document.createElement("div");
-  code.className = "subject-code";
-  code.textContent = `Code: ${enrollment.subject_code}`;
-  
-  // Pie chart canvas
+  const subjectTitle = document.createElement("h4");
+  subjectTitle.textContent = enrollment.subject_name;
+
+  const subjectCode = document.createElement("p");
+  subjectCode.classList.add("subject-code");
+  subjectCode.textContent = enrollment.subject_code;
+
   const chartContainer = document.createElement("div");
-  chartContainer.className = "pie-chart-container";
+  chartContainer.classList.add("pie-chart-container");
   const canvas = document.createElement("canvas");
-  canvas.id = `chart-${enrollment.id}`;
+  const chartId = `chart-${enrollment.id}`;
+  canvas.id = chartId;
   chartContainer.appendChild(canvas);
 
-  // View Grade Button
-  const btn = document.createElement("a");
-  btn.className = "view-grade-btn";
-  btn.href = `/grades/${enrollment.id}/`;
-  btn.textContent = "View Grade";
+  const viewGradeBtn = document.createElement("a");
+  viewGradeBtn.textContent = "View Grade";
+  viewGradeBtn.href = `/grades/${enrollment.id}/`;  // adjust if needed
+  viewGradeBtn.classList.add("view-grade-btn");
 
-  // Assemble
-  card.appendChild(title);
-  card.appendChild(code);
-  card.appendChild(chartContainer);
-  card.appendChild(btn);
+  card.append(subjectTitle, subjectCode, chartContainer, viewGradeBtn);
   wrapper.appendChild(card);
 
-  // Draw dummy pie chart for now
-  drawGradePie(canvas.id, enrollment);  // Fill this in below
-}
-
-function drawGradePie(canvasId, enrollment) {
-  const ctx = document.getElementById(canvasId).getContext("2d");
-
-  // Temporary fake values until we get real ones from the API
-  const quiz = 30;
-  const activity = 30;
-  const exam = 40;
-
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ['Quiz', 'Activity', 'Exam'],
-      datasets: [{
-        data: [quiz, activity, exam],
-        backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false
+  // Now fetch grade weights and render chart
+  fetch(`${API_BASE_URL}api/subjects/${enrollment.subject_code}/weights/`)
+    .then(res => res.json())
+    .then(subjectWeights => {
+      const ctx = document.getElementById(chartId);
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Quiz', 'Activity', 'Exam'],
+          datasets: [{
+            data: [
+              subjectWeights.quiz_weight,
+              subjectWeights.activity_weight,
+              subjectWeights.exam_weight
+            ],
+            backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
         }
-      }
-    }
-  });
+      });
+    })
+    .catch(err => {
+      console.error(`Failed to load subject weights for ${enrollment.subject_code}:`, err);
+    });
 }

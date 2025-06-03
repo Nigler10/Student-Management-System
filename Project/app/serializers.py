@@ -132,6 +132,29 @@ class EnrollmentToggleActiveSerializer(serializers.ModelSerializer):
         model = Enrollment
         fields = ['is_active']
 
+# serializers.py
+class EnrollmentGradeBreakdownSerializer(serializers.ModelSerializer):
+    quiz_weight = serializers.DecimalField(source='subject.quiz_weight', max_digits=5, decimal_places=2)
+    activity_weight = serializers.DecimalField(source='subject.activity_weight', max_digits=5, decimal_places=2)
+    exam_weight = serializers.DecimalField(source='subject.exam_weight', max_digits=5, decimal_places=2)
+    grades = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Enrollment
+        fields = ['id', 'quiz_weight', 'activity_weight', 'exam_weight', 'grades']
+
+    def get_grades(self, obj):
+        from app.models import Grade
+        grade_types = ['quiz', 'activity', 'exam']
+        result = {}
+        for grade_type in grade_types:
+            grades = Grade.objects.filter(enrollment=obj, grade_type=grade_type)
+            total_score = sum(g.score or 0 for g in grades)
+            total_max = sum(g.max_score or 0 for g in grades)
+            percentage = (total_score / total_max * 100) if total_max > 0 else 0
+            result[grade_type] = round(percentage, 2)
+        return result
+
 # Grade Serializers
 
 class GradeCreateSerializer(serializers.ModelSerializer):
