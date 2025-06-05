@@ -14,7 +14,7 @@ fetch(`${API_BASE_URL}api/students/${studentId}/`)
 
     if (data.enrollments && data.enrollments.length > 0) {
       data.enrollments.forEach(renderSubjectCard);
-    }    
+    }
   })
   .catch(error => console.error('Failed to load student details:', error));
 
@@ -45,6 +45,26 @@ function renderSubjectCard(enrollment) {
 
   card.append(subjectTitle, subjectCode, chartContainer, viewGradeBtn);
   wrapper.appendChild(card);
+
+  // Fetch grade breakdown and render partial/final grades
+  fetch(`${API_BASE_URL}api/enrollments/${enrollment.id}/grade-breakdown/`)
+    .then(res => res.json())
+    .then(gradeData => {
+      const gradeDiv = document.createElement("div");
+      gradeDiv.classList.add("grade-summary");
+
+      gradeDiv.innerHTML = `
+        <p><strong>Quiz:</strong> ${gradeData.grades.quiz}%</p>
+        <p><strong>Activity:</strong> ${gradeData.grades.activity}%</p>
+        <p><strong>Exam:</strong> ${gradeData.grades.exam}%</p>
+        <p><strong>Final Grade:</strong> <span class="final-grade">${gradeData.final_grade}%</span></p>
+      `;
+
+      card.insertBefore(gradeDiv, viewGradeBtn);
+    })
+    .catch(err => {
+      console.error(`Failed to load grade breakdown for enrollment ${enrollment.id}:`, err);
+    });
 
   // Now fetch grade weights and render chart
   fetch(`${API_BASE_URL}api/subjects/${enrollment.subject_code}/weights/`)

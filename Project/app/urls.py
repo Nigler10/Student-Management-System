@@ -30,5 +30,4 @@ urlpatterns = [
     # Grade HTML
     path('grades/create/', views.grade_create_view, name='grade-create'),
     path('grades/<int:grade_id>/edit/', views.grade_edit_view, name='grade-edit'),
-
 ]

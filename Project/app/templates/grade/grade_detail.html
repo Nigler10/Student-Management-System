@@ -3,6 +3,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/grade/grade_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/student/student_delete.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,9 +20,27 @@
     </thead>
     <tbody></tbody>
 </table>
+
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Delete</h3>
+        <p>Are you sure you want to delete this grade?</p>
+
+        <form id="delete-form">
+            <input type="checkbox" id="confirm-checkbox">
+            <label for="confirm-checkbox">I understand this action cannot be undone.</label>
+
+            <div class="button-group">
+                <button type="button" id="cancel-delete">Cancel</button>
+                <button type="submit" id="confirm-delete-btn" disabled>Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script src="{% static 'js/config.js' %}"></script>
 <script src="{% static 'js/grade/grade_detail.js' %}"></script>
+<script src="{% static 'js/grade/grade_delete.js' %}"></script>
 {% endblock %}

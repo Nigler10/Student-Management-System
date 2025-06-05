@@ -26,6 +26,8 @@ fetch(`${API_BASE_URL}api/enrollments/${enrollmentId}/grades/`)
 
     grades.forEach((grade) => {
       const tr = document.createElement("tr");
+      tr.dataset.gradeId = grade.id;
+
       tr.innerHTML = `
         <td>${grade.grade_type}</td>
         <td>${grade.title}</td>
@@ -43,3 +45,12 @@ fetch(`${API_BASE_URL}api/enrollments/${enrollmentId}/grades/`)
     console.error(err);
     gradeTableBody.innerHTML = `<tr><td colspan="5" style="color:red;">${err.message}</td></tr>`;
   });
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-grade-btn')) {
+    const gradeRow = e.target.closest('tr');
+    const gradeId = gradeRow.dataset.gradeId;
+
+    // Open modal, store gradeIdToDelete, etc.
+  }
+});

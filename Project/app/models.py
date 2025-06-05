@@ -48,7 +48,7 @@ class Subject(models.Model):
 
     def save(self, *args, **kwargs):
         self.code = self.code.upper()
-        self.full_clean()  # trigger `clean()` method for validation
+        self.full_clean()
         super().save(*args, **kwargs)
 
     def __str__(self):

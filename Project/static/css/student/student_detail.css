@@ -119,6 +119,22 @@ main {
     box-shadow: 0 5px 12px rgba(0, 63, 125, 0.6);
 }
 
+.grade-summary {
+    width: 100%;
+    margin-bottom: 16px;
+    font-size: 0.95em;
+    text-align: left;
+}
+
+.grade-summary p {
+    margin: 4px 0;
+}
+
+.final-grade {
+    font-weight: bold;
+    color: #2e8b57;
+}
+
 @media (max-width: 600px) {
     .student-actions {
         flex-direction: column;
