@@ -1,5 +1,3 @@
-// grade_detail.js
-
 const gradeTableBody = document.querySelector("#grade-table tbody");
 
 // Grab enrollment_id from URL path

@@ -1,0 +1,17 @@
+@import url("grade_create.css"); /* Yes, just reuse it */
+
+#create-status,
+#edit-status {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    color: green !important;
+}
+
+#edit-status.error {
+    color: red !important;
+}
+
+#edit-status.success {
+    color: green !important;
+}

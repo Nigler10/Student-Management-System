@@ -10,7 +10,7 @@ from .serializers import (
     StudentDetailSerializer, StudentCreateSerializer,
     SubjectDetailSerializer, SubjectSerializer,
     EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentCreateSerializer, EnrollmentGradeBreakdownSerializer,
-    GradeSerializer, GradeDetailSerializer
+    GradeSerializer, GradeDetailSerializer, GradeUpdateSerializer
 )
 
 # API Views
@@ -106,6 +106,11 @@ class GradeViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    def get_serializer_class(self):
+        if self.action in ['update', 'partial_update']:
+            return GradeUpdateSerializer
+        return GradeSerializer
+
 # HTML Views (Student)
 def index(request):
     return render(request, "app/index.html")
@@ -174,3 +179,6 @@ def grade_create_view(request):
 
 def enrollment_grades_page(request, enrollment_id):
     return render(request, 'grade/grade_detail.html', {'enrollment_id': enrollment_id})
+
+def grade_edit_view(request, grade_id):
+    return render(request, 'grade/grade_edit.html', {'grade_id': grade_id})

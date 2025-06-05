@@ -228,3 +228,15 @@ class GradeBulkUpdateSerializer(serializers.Serializer):
         if data['score'] < 0 or data['max_score'] <= 0:
             raise serializers.ValidationError("Invalid score or max_score.")
         return data
+
+class GradeUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Grade
+        fields = ['id', 'enrollment', 'grade_type', 'title', 'max_score', 'score']
+
+    def validate(self, data):
+        score = data.get('score')
+        max_score = data.get('max_score')
+        if score is not None and max_score is not None and score > max_score:
+            raise serializers.ValidationError("Score cannot exceed max score.")
+        return data
