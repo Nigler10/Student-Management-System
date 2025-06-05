@@ -1,81 +1,55 @@
-#grade-header {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#grade-header h3 {
-  margin: 0;
-}
-
-#grade-header p {
-  color: #555;
-  margin: 4px 0 12px 0;
-}
-
-.grade-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.grade-actions button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: 500;
-  border: none;
+.back-link {
+  color: #0057a3;
+  text-decoration: none;
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-#edit-mode-btn {
-  background-color: #0077cc;
-  color: white;
-}
-
-#save-btn {
-  background-color: #28a745;
-  color: white;
-}
-
-#save-btn:disabled {
-  background-color: #a5d6a7;
-  cursor: not-allowed;
-}
-
-#grade-table-container {
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
+.back-link:hover {
+  color: #003f7d;
+  text-decoration: underline;
 }
 
 #grade-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
-#grade-table th,
-#grade-table td {
-  padding: 10px;
-  text-align: center;
+#grade-table th, #grade-table td {
+  padding: 16px 12px;
+  text-align: left;
   border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
 }
 
-#grade-table input[type="number"] {
-  width: 80px;
-  padding: 4px;
-  text-align: center;
-}
-
-.delete-btn {
-  background-color: #dc3545;
+#grade-table th {
+  background-color: #0057a3;
   color: white;
-  padding: 6px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  font-weight: bold;
 }
 
-.delete-btn:hover {
-  background-color: #c82333;
+#grade-table tbody tr:hover {
+  background-color: #f1f7ff;
+}
+
+.action-btn {
+  background-color: #0057a3;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-right: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.action-btn:hover {
+  background-color: #003f7d;
 }

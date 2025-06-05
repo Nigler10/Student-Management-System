@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import EnrollmentGradeBreakdownView, EnrollmentGradeDetailView, GradeBulkUpdateView, subject_weights_view
+from .views import EnrollmentGradeBreakdownView, EnrollmentGradeDetailView, subject_weights_view
 
 urlpatterns = [
     # Student HTML
@@ -29,5 +29,5 @@ urlpatterns = [
 
     # Grade HTML
     path('grades/create/', views.grade_create_view, name='grade-create'),
-    path('grades/bulk_update/', GradeBulkUpdateView.as_view(), name='grade-bulk-update'),
+
 ]

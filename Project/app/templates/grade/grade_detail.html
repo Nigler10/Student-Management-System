@@ -3,75 +3,25 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/grade/grade_detail.css' %}">
-<style>
-    /* Minor overrides to keep grade table clean */
-    #grade-table th,
-    #grade-table td {
-        padding: 12px 10px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    #grade-table input[type="number"] {
-        width: 80px;
-        padding: 6px;
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #f5f5f5;
-    }
-
-    #grade-table input[type="number"]:disabled {
-        background-color: transparent;
-        border: none;
-        font-weight: 600;
-    }
-
-    .grade-buttons {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-
-    .grade-buttons button {
-        min-width: 90px;
-        font-weight: 600;
-    }
-</style>
 {% endblock %}
 
 {% block content %}
-<main>
-    <div id="student-info" class="mb-4">
-        <h3 id="subject-title">Loading...</h3>
-    </div>
+<h2><a href="/" class="back-link">❮ Grade Details</a></h2>
+<table id="grade-table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Score</th>
+            <th>Max Score</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+{% endblock %}
 
-    <div id="enrolled-subjects-container" class="p-4">
-        <div class="grade-buttons">
-            <button id="edit-btn" class="action-btn">Edit</button>
-            <button id="save-btn" class="action-btn" disabled>Save</button>
-            <button id="cancel-btn" class="action-btn" style="display:none;">Cancel</button>
-        </div>
-
-        <table id="grade-table" class="table table-bordered text-center">
-            <thead class="thead-light">
-                <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Score</th>
-                    <th>Max Score</th>
-                </tr>
-            </thead>
-            <tbody id="grade-table-body">
-                <!-- JS inserts rows -->
-            </tbody>
-        </table>
-    </div>
-</main>
-
-<script>
-    const enrollmentId = "{{ enrollment_id }}";
-</script>
+{% block scripts %}
 <script src="{% static 'js/config.js' %}"></script>
 <script src="{% static 'js/grade/grade_detail.js' %}"></script>
 {% endblock %}

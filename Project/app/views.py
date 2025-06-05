@@ -10,7 +10,7 @@ from .serializers import (
     StudentDetailSerializer, StudentCreateSerializer,
     SubjectDetailSerializer, SubjectSerializer,
     EnrollmentDetailSerializer, EnrollmentListSerializer, EnrollmentCreateSerializer, EnrollmentGradeBreakdownSerializer,
-    GradeSerializer, GradeDetailSerializer, GradeBulkUpdateSerializer
+    GradeSerializer, GradeDetailSerializer
 )
 
 # API Views
@@ -105,22 +105,6 @@ class GradeViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(enrollment__subject__id=subject_id)
 
         return queryset
-
-class GradeBulkUpdateView(APIView):
-    def put(self, request):
-        serializer = GradeBulkUpdateSerializer(data=request.data.get('grades', []), many=True)
-        serializer.is_valid(raise_exception=True)
-
-        for grade_data in serializer.validated_data:
-            try:
-                grade = Grade.objects.get(id=grade_data['id'])
-                grade.score = grade_data['score']
-                grade.max_score = grade_data['max_score']
-                grade.save()
-            except Grade.DoesNotExist:
-                continue  # Silently skip invalid grade ids
-
-        return Response({'status': 'updated'}, status=status.HTTP_200_OK)
 
 # HTML Views (Student)
 def index(request):
