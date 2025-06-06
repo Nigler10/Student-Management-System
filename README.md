@@ -20,7 +20,7 @@ This project was developed using **Python 3.8.6**.
 
 These are beginner-friendly instructions assuming you're using File Explorer, CMD, and VSCode.
 
-### 🧱 Step-by-step Instructions
+### 📋 Step-by-step Instructions
 
 1. **Open File Explorer** where you want to save the project.
 
