@@ -27,7 +27,7 @@ These are beginner-friendly instructions assuming you're using File Explorer, CM
 2. **Open CMD inside that folder**:  
    Click the address bar → type `cmd` → press `Enter`
 
-3. **Clone the repo**: 
+3. **Clone the repo**:  
    git clone https://github.com/Nigler10/Student-Management-System.git
 
 4. **Close CMD, then open VSCode.**
@@ -39,23 +39,23 @@ These are beginner-friendly instructions assuming you're using File Explorer, CM
    Use `Ctrl + Shift + ~` or go to Terminal > New Terminal  
    (Make sure it's using CMD and you're inside the `Student-Management-System` folder)
 
-7. **Create and activate virtual environment**: 
-   python -m venv .venv 
+7. **Create and activate virtual environment:**  
+   python -m venv .venv  
    .venv\Scripts\activate.bat
 
-8. **Navigate to the Project folder**: 
+8. **Navigate to the Project folder:**  
    cd Project
 
-9. **Install all required dependencies**: 
+9. **Install all required dependencies:**  
    pip install -r requirements.txt
 
-10. **Run migrations**: 
+10. **Run migrations:**  
    python manage.py migrate
 
-11. **Create a superuser (for admin login)**: 
+11. **Create a superuser (for admin login):**  
    python manage.py createsuperuser
 
-12. **Run the development server**: 
+12. **Run the development server:**  
    python manage.py runserver
 
 Then go to http://127.0.0.1:8000/ in your browser.
