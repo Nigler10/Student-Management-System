@@ -8,7 +8,7 @@ This is a full-stack web application to manage student records, subjects, and th
 
 This project was developed using **Python 3.8.6**.
 
-> ⚠️ If you're using a **newer Python version** (like 3.12 or any above 3.8), you may run into errors during `migrate` or `pip install` due to certain dependencies not being compatible out of the box.
+> **⚠️ If you're using a **newer Python version** (like 3.12 or any above 3.8), you may run into errors during `migrate` or `pip install` due to certain dependencies not being compatible out of the box.**
 
 ### 🔧 Your options:
 - ✅ **Recommended:** Install Python **3.8.x** to match the project.
@@ -28,35 +28,34 @@ These are beginner-friendly instructions assuming you're using File Explorer, CM
    Click the address bar → type `cmd` → press `Enter`
 
 3. **Clone the repo**
-```bash
 git clone https://github.com/Nigler10/Student-Management-System.git
 
-4. Close CMD, then open VSCode.
+4. **Close CMD, then open VSCode.**
 
-5. Open the cloned folder:
+5. **Open the cloned folder:**
 In VSCode: File > Open Folder → select Student-Management-System
 
-6. Open a Terminal inside VSCode:
+6. **Open a Terminal inside VSCode:**
 Use Ctrl + Shift + ~ or go to Terminal > New Terminal
 (Make sure it's using CMD and you're inside the Student-Management-System folder)
 
-7. Create and activate virtual environment
+7. **Create and activate virtual environment**
 python -m venv .venv
 .venv\Scripts\activate.bat
 
-8. Navigate to the Project folder
+8. **Navigate to the Project folder**
 cd Project
 
-9. Install all required dependencies
+9. **Install all required dependencies**
 pip install -r requirements.txt
 
-10. Run migrations
+10. **Run migrations**
 python manage.py migrate
 
-11. Create a superuser (for admin login)
+11. **Create a superuser (for admin login)**
 python manage.py createsuperuser
 
-12. Run the development server
+12. **Run the development server**
 python manage.py runserver
 
 Then go to http://127.0.0.1:8000/ in your browser.
