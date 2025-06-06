@@ -30,14 +30,14 @@ These are beginner-friendly instructions assuming you're using File Explorer, CM
 3. **Clone the repo**: 
    git clone https://github.com/Nigler10/Student-Management-System.git
 
-4. **Close CMD, then open VSCode.**:
+4. **Close CMD, then open VSCode.**
 
-5. **Open the cloned folder**: 
-   In VSCode: File > Open Folder → select Student-Management-System
+5. **Open the cloned folder:**  
+   In VSCode: File > Open Folder → select `Student-Management-System`
 
-6. **Open a Terminal inside VSCode**: 
-   Use Ctrl + Shift + ~ or go to Terminal > New Terminal 
-   (Make sure it's using CMD and you're inside the Student-Management-System folder)
+6. **Open a Terminal inside VSCode:**  
+   Use `Ctrl + Shift + ~` or go to Terminal > New Terminal  
+   (Make sure it's using CMD and you're inside the `Student-Management-System` folder)
 
 7. **Create and activate virtual environment**: 
    python -m venv .venv 
