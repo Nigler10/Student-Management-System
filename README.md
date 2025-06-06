@@ -1,6 +1,6 @@
 # 🧑‍🎓 Student Management System
 
-This is a full-stack web application to manage student records, subjects, and their corresponding grades (Activities, Quizzes, Exams). Built with Django and Django REST Framework for the backend and plain HTML/CSS/JavaScript for the frontend.
+This is a full-stack web application to manage student records, subject enrollments, and their corresponding grades (Activities, Quizzes, Exams). Built with Django and Django REST Framework for the backend, and plain HTML/CSS/JavaScript for the frontend.
 
 ---
 
