@@ -1,3 +1,7 @@
+> ⚠️ **Note:** The live website link for this project is intentionally **not included** here to prevent unwanted or inappropriate submissions from random viewers. The deployed link will be shared **privately** through the Google Classroom.
+
+---
+
 # 🧑‍🎓 Student Management System
 
 This is a full-stack web application to manage student records, subject enrollments, and their corresponding grades (Activities, Quizzes, Exams). Built with Django and Django REST Framework for the backend, and plain HTML/CSS/JavaScript for the frontend.
