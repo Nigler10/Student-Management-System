@@ -19,12 +19,6 @@ function getCSRFToken() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const sectionDropdown = document.getElementById("sectionDropdown");
-    sectionChoices.forEach(([code, name]) => {
-        const option = document.createElement("option");
-        option.value = code;
-        option.textContent = name;
-        sectionDropdown.appendChild(option);
-    });
 
     const studentDropdown = document.getElementById("student");
     const subjectDropdown = document.getElementById("subject");
@@ -41,12 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Populate sections dropdown
     function populateSections() {
-        sectionChoices.forEach(({ key, label }) => {
+        sectionChoices.forEach(([code, name]) => {
             const option = document.createElement("option");
-            option.value = key;
-            option.textContent = label;
+            option.value = code;
+            option.textContent = name;
             sectionDropdown.appendChild(option);
-        });
+        });        
     }
 
     // Fetch students from API
