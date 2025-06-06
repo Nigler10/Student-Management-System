@@ -1,4 +1,4 @@
-> ⚠️ **Note:** The live website link for this project is intentionally **not included** here to prevent unwanted or inappropriate submissions from random viewers. The deployed link will be shared **privately** through the Google Classroom.
+> ⚠️ **Note:** The live website link for this project is intentionally **not included** here to prevent unwanted or inappropriate submissions from random viewers. The deployed link will be shared **privately** through Google Classroom.
 
 ---
 
