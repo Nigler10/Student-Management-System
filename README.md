@@ -65,16 +65,26 @@ These are beginner-friendly instructions assuming you're using File Explorer, CM
 Then go to http://127.0.0.1:8000/ in your browser.
 
 ---
-
 > ⚠️ **NOTE:** Before running `python manage.py runserver`, make sure you're in **local dev mode** — the committed code is set for deployment.
 
 ### 🔧 Quick Local Setup Fix (Do This Before Step 12!)
 
 1. **In** `Project/Project/settings.py`:
+   ```python
    # Change this:
    DEBUG = os.getenv("DEBUG", "False") == "True"
 
    # To this:
    # DEBUG = os.getenv("DEBUG", "False") == "True"
    DEBUG = True
+
+2. **In** `Project/app/static/js/config.js`:
+   ```js
+   // Change this:
+   // const API_BASE_URL = "http://127.0.0.1:8000/";
+   const API_BASE_URL = "https://student-management-system-zhy2.onrender.com/";
+
+   // To this:
+   const API_BASE_URL = "http://127.0.0.1:8000/";
+   // const API_BASE_URL = "https://student-management-system-zhy2.onrender.com/";
    
